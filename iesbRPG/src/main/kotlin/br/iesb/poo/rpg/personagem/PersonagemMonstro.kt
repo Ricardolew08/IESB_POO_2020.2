@@ -1,6 +1,6 @@
 package br.iesb.poo.rpg.personagem
 
-class PersonagemMonstro {
+class PersonagemMonstro:Personagem() {
 
     // Orc = 1; Goblin = 2
     // Orc + Defesa; Goblin + Ataque

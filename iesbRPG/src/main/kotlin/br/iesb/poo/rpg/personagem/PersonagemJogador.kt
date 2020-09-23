@@ -1,6 +1,6 @@
 package br.iesb.poo.rpg.personagem
 
-class PersonagemJogador {
+class PersonagemJogador: Personagem() {
 
     //Arqueiro = 1; Cavaleiro = 2
     //Arqueiro + Ataque; Cavaleiro + Defesa
