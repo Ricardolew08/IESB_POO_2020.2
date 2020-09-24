@@ -18,8 +18,9 @@ class PersonagemJogador( classe: Int,
 
     var sorte: Int = 0
 
-    init {
-
+    init{
+        this.vida = 5
+        this.sorte = 0
     }
 
     open fun Morrer() {
@@ -49,6 +50,10 @@ class PersonagemJogador( classe: Int,
             println("Parabéns, aproveite sua poção de vida! Bad bitch")
             this.vida.plus(1)
         }
+        if ((1..100).random() == 1){
+            this.sorte.plus(1)
+        }
+
 
     }
 

@@ -2,9 +2,15 @@ package br.iesb.poo.rpg.batalha
 
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.personagem.PersonagemMonstro
+import br.iesb.poo.rpg.Rpg
+import br.iesb.poo.rpg.TipoPersonagem
+import kotlin.reflect.typeOf
 
-fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
+fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador, RPG: Rpg):String {
 
+    var novomonstro = RPG.CriarPersonagem(0, "0", 0, TipoPersonagem.PERSONAGEM_MONSTRO)
+
+    var log: String = "log da batalha\n"
 
     var ataqueJ: Int = jogador.ataque
     var ataqueM: Int = monstro.ataque
@@ -30,10 +36,10 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
         defesaM--
 
 
+
     val iniciativa: Int = (0..10).random()
     if (5 + jogador.sorte > iniciativa) {
-        println("Você pode atacar o monstro primeiro! \n" +
-                "Utilize sua vantagem!")
+        log += "Você atacou o monstro primeiro!\n"
 
         while (defesaJ > 0 || defesaM > 0) {
             defesaM -= ataqueJ
@@ -52,8 +58,7 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
 
 
     } else
-
-        println("EMBOSCADA! Monstro começou a te atacar.")
+        log += "EMBOSCADA! Monstro começou a te atacar.\n"
 
     while (defesaM > 0 || defesaJ > 0) {
         defesaJ -= ataqueM
@@ -68,10 +73,6 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
             break
         }
     }
-}
 
-fun main() {
-
-   // batalha(monstro = PersonagemMonstro(), jogador = PersonagemJogador())
-
+    return log
 }

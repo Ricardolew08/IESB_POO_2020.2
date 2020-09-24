@@ -1,7 +1,8 @@
 package br.iesb.poo
- //Import no build.gradle
+//Import no build.gradle
 import br.iesb.poo.rpg.Rpg
 import br.iesb.poo.rpg.personagem.PersonagemJogador
+import br.iesb.poo.rpg.personagem.PersonagemMonstro
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
@@ -11,11 +12,17 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import br.iesb.poo.rpg.batalha.batalha
 
 //post("/batalha"){}
 val RPG : Rpg = Rpg()
 
+
+
 fun main() {
+
+    var retorno = batalha(PersonagemMonstro(1, "noem", 3), PersonagemJogador(1, "sla", 2), RPG)
+
     embeddedServer(Netty, 8080) {
         routing {
             install(ContentNegotiation) {
@@ -36,7 +43,9 @@ fun main() {
                 val novojogador = call.receive<PersonagemJogador>()
                 RPG.jogadores.add(novojogador)
             }
-
+            get("/batalha"){
+                call.respondText(retorno)
+            }
 
         }
     }.start(wait = true)

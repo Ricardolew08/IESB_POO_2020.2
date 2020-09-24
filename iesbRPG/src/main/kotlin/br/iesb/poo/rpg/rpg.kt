@@ -13,40 +13,28 @@ class Rpg {
     val jogadores = mutableListOf<PersonagemJogador>()
     val monstros = mutableListOf<PersonagemMonstro>()
 
-    val arraynomemonstro = arrayOf("ALSIJFLKAS", "LSHFKAHS", "KEWJDJFWLF", "LKJFDWF")
+    val arraynomemonstro = arrayOf("Bolsonaro", "Michele", "Tump", "Valdemiro Putao")
 
     fun CriarPersonagem(
             classe: Int,
             nome: String,
             elemento: Int,
             tipo: TipoPersonagem
-    ) {
+    ):Personagem?{
         val personagem = if( tipo == TipoPersonagem.PERSONAGEM_JOGADOR ) {
-                PersonagemJogador(classe, nome, elemento)
+            PersonagemJogador(classe, nome, elemento)
         }else{
-                var novaraca = (1..2).random()
-                var tamanhoarray = arraynomemonstro.size-1
-                var nomevindoapi = arraynomemonstro[(0..tamanhoarray).random()]
-                var elementorandomico = (1..4).random()
-                PersonagemMonstro(novaraca, nomevindoapi, elementorandomico)
+            var novaraca = (1..2).random()
+            var tamanhoarray = arraynomemonstro.size-1
+            var nomevindoapi = arraynomemonstro[(0..tamanhoarray).random()]
+            var elementorandomico = (1..4).random()
+            PersonagemMonstro(novaraca, nomevindoapi, elementorandomico)
         }
         if(personagem is PersonagemJogador){
             jogadores.add(personagem)
         }else monstros.add(personagem as PersonagemMonstro)
 
+        return personagem
     }
-
-}
-
-fun main(){
-
-    var RPG = Rpg()
-
-    RPG.CriarPersonagem(1,"Isabella", 3, TipoPersonagem.PERSONAGEM_MONSTRO)
-
-    for(i in RPG.monstros){
-        println(i.nome)
-    }
-
 
 }

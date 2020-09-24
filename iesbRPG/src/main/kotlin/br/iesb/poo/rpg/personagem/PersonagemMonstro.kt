@@ -13,7 +13,7 @@ class PersonagemMonstro(raca: Int,
         this.raca = raca
     }
 
-   open fun Perder(){
+    open fun Perder(){
         println("Monstro foi abatido. \n" )
     }
 
