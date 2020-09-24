@@ -6,4 +6,10 @@ class PersonagemMonstro:Personagem() {
     // Orc + Defesa; Goblin + Ataque
 
     var raca: Int = 0
+
+   open fun Perder(){
+        println("Monstro foi abatido. \n" +
+                "Você ganhou ${dinheiro} moedas de ouro e ${nivel} xp" )
+    }
+
 }
