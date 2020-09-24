@@ -47,8 +47,6 @@ fun main(){
     for(i in RPG.monstros){
         println(i.nome)
     }
-    println(TipoPersonagem.PERSONAGEM_MONSTRO)
-    println(TipoPersonagem.PERSONAGEM_JOGADOR)
 
 
 }

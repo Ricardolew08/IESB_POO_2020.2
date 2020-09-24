@@ -18,6 +18,7 @@ open class Personagem(nick: String, element: Int) {
     init {
         nome = nick
         elemento = element
+
     }
 
 

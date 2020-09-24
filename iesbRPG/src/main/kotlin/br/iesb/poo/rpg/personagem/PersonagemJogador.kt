@@ -18,6 +18,10 @@ class PersonagemJogador( classe: Int,
 
     var sorte: Int = 0
 
+    init {
+
+    }
+
     open fun Morrer() {
         println("You died bitch!")
     }
