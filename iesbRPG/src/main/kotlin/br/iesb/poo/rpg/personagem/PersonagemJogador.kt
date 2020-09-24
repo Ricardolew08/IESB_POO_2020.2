@@ -3,7 +3,9 @@ package br.iesb.poo.rpg.personagem
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-class PersonagemJogador : Personagem() {
+class PersonagemJogador( classe: Int,
+                         vida: Int,
+                         sorte: Int) : Personagem() {
 
     //Arqueiro = 1; Cavaleiro = 2
     //Arqueiro + Ataque; Cavaleiro + Defesa
@@ -31,7 +33,7 @@ class PersonagemJogador : Personagem() {
     }
 
     open fun Ganhar() {
-        this.dinheiro.plus(this.nivel * (1..3).random())
+//        this.dinheiro.plus(this.nivel * (1..3).random())
         val niveltemp = (1..3).random() * this.nivel
         this.nivel.times((1..3).random())//-log x+2
         if (floor(niveltemp) > floor(this.nivel)) {

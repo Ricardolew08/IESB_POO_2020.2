@@ -5,6 +5,7 @@ import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
 fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
 
+
     var ataqueJ: Int = jogador.ataque
     var ataqueM: Int = monstro.ataque
 
@@ -66,10 +67,7 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
             jogador.Ganhar()
             break
         }
-
     }
-
-
 }
 
 fun main() {

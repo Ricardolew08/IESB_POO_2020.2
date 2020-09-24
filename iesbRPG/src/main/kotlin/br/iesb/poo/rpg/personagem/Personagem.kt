@@ -1,6 +1,6 @@
 package br.iesb.poo.rpg.personagem
 
-open class Personagem {
+open class Personagem(nick: String, element: Int) {
     var nome: String? = null
 
     var nivel: Double = 1.0
@@ -14,6 +14,12 @@ open class Personagem {
     // Terreno igual ao seu, +1 de defesa; Ganho na hierarquia de elemento em relação ao oponente = +1 ataque
 
     var elemento: Int = 0
+
+    init {
+        nome = nick
+        elemento = element
+    }
+
 
 
 
