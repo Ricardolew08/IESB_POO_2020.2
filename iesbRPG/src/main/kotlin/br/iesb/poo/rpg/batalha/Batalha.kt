@@ -72,6 +72,6 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador) {
 
 fun main() {
 
-    batalha(monstro = PersonagemMonstro(), jogador = PersonagemJogador())
+   // batalha(monstro = PersonagemMonstro(), jogador = PersonagemJogador())
 
 }

@@ -4,8 +4,10 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 
 class PersonagemJogador( classe: Int,
-                         vida: Int,
-                         sorte: Int) : Personagem() {
+//                         vida: Int,
+//                         sorte: Int, Como usuário nao escolha nao precisamos receber
+                         nick: String, //filho tem tudo que o pai tem
+                         element: Int) : Personagem(nick,element) {
 
     //Arqueiro = 1; Cavaleiro = 2
     //Arqueiro + Ataque; Cavaleiro + Defesa
