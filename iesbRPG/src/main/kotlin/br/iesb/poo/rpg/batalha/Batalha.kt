@@ -4,11 +4,11 @@ import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.personagem.PersonagemMonstro
 import br.iesb.poo.rpg.Rpg
 import br.iesb.poo.rpg.TipoPersonagem
-import kotlin.reflect.typeOf
 
-fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador, RPG: Rpg):String {
+fun batalha(jogador: PersonagemJogador, RPG: Rpg):String {
 
-    var novomonstro = RPG.CriarPersonagem(0, "0", 0, TipoPersonagem.PERSONAGEM_MONSTRO)
+
+    var monstro = RPG.CriarPersonagem(0, "0", 0, TipoPersonagem.PERSONAGEM_MONSTRO)
 
     var log: String = "log da batalha\n"
 
@@ -17,6 +17,9 @@ fun batalha(monstro: PersonagemMonstro, jogador: PersonagemJogador, RPG: Rpg):St
 
     var defesaJ: Int = jogador.defesa
     var defesaM: Int = monstro.defesa
+
+    ataqueM += (0..3).random()
+    defesaM += (0..3).random()
 
     val chanceterreno: Int = (1..4).random()
 

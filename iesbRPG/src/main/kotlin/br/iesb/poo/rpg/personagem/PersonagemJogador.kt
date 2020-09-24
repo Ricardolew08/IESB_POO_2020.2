@@ -3,9 +3,9 @@ package br.iesb.poo.rpg.personagem
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-class PersonagemJogador( classe: Int,
-//                         vida: Int,
-//                         sorte: Int, Como usuário nao escolha nao precisamos receber
+class PersonagemJogador( classejogador: Int,
+//                       vida: Int,
+//                       sorte: Int, Como usuário nao escolha nao precisamos receber
                          nick: String, //filho tem tudo que o pai tem
                          element: Int) : Personagem(nick,element) {
 
@@ -18,10 +18,10 @@ class PersonagemJogador( classe: Int,
 
     var sorte: Int = 0
 
-    init{
-        this.vida = 5
-        this.sorte = 0
+    init {
+        classe = classejogador
     }
+
 
     open fun Morrer() {
         println("You died bitch!")

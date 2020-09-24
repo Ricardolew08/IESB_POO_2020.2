@@ -18,10 +18,6 @@ open class Personagem(nick: String, element: Int) {
     init {
         nome = nick
         elemento = element
-        nivel = 1.0
-        dinheiro = 0
-        ataque = 1
-        defesa = 1
     }
 
 

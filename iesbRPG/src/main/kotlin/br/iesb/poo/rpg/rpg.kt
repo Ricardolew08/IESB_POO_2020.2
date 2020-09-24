@@ -20,7 +20,7 @@ class Rpg {
             nome: String,
             elemento: Int,
             tipo: TipoPersonagem
-    ):Personagem?{
+    ):Personagem{
         val personagem = if( tipo == TipoPersonagem.PERSONAGEM_JOGADOR ) {
             PersonagemJogador(classe, nome, elemento)
         }else{

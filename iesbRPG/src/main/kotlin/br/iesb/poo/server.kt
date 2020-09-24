@@ -14,14 +14,15 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
 
+data class nomejogador(var data:String)
+
 //post("/batalha"){}
 val RPG : Rpg = Rpg()
 
 
-
 fun main() {
 
-    var retorno = batalha(PersonagemMonstro(1, "noem", 3), PersonagemJogador(1, "sla", 2), RPG)
+
 
     embeddedServer(Netty, 8080) {
         routing {
@@ -39,13 +40,30 @@ fun main() {
             get("/monstros"){
                 call.respond(RPG.monstros)
             }
+            // check disponibilidade do nome do jogador
             post("/jogadores/criarjogador"){
                 val novojogador = call.receive<PersonagemJogador>()
-                RPG.jogadores.add(novojogador)
+                println(novojogador.classe)
+                println(novojogador.nivel)
+                println(novojogador.ataque)
+                println(novojogador.defesa)
+                RPG.jogadores.add(PersonagemJogador(novojogador.classe, nick = (novojogador.nome as String), novojogador.elemento))
             }
-            get("/batalha"){
+            post("/batalha/{nomejogador}"){
+                val nomejogador = call.parameters["nomejogador"]
+                println(nomejogador)
+                var retorno : String = batalha(RPG.jogadores.filter{it.nome==nomejogador}[0], RPG)
+                println(retorno)
                 call.respondText(retorno)
+
             }
+
+
+
+
+
+
+
 
         }
     }.start(wait = true)
