@@ -21,7 +21,9 @@ class Rpg {
         "Montro",
         "Éffiagácê",
         "Kin John 1: Flango",
-        "Kin John 2: return('The')"
+        "Kin John 2: return('The')",
+        "Conde Temer",
+        "Abaishar, o Assado"
     )
 
     var contador = 0

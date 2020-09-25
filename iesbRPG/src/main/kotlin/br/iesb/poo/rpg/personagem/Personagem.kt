@@ -30,6 +30,7 @@ open class Personagem(nick: String, element: Int) {
 
     }
 
+    //INTERFACE
     open fun derrota(): String {
         return ""
     }
