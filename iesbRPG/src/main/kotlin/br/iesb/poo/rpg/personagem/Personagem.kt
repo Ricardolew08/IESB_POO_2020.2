@@ -1,6 +1,8 @@
 package br.iesb.poo.rpg.personagem
 
+
 open class Personagem(nick: String, element: Int) {
+
     var nome: String? = null
 
     var nivel: Int = 1
@@ -20,7 +22,15 @@ open class Personagem(nick: String, element: Int) {
         elemento = element
     }
 
+    protected open fun genId(Seed: Int): Int {
+        return 0
+    }
 
+    protected fun morrer() {
 
+    }
 
+    open fun derrota(): String {
+        return ""
+    }
 }
