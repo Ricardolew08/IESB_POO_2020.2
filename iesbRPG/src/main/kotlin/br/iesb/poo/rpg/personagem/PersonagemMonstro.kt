@@ -8,6 +8,7 @@ class PersonagemMonstro(raca: Int,
     // Orc + Defesa; Goblin + Ataque
 
     var raca: Int = 0
+    
 
     init{
         this.raca = raca

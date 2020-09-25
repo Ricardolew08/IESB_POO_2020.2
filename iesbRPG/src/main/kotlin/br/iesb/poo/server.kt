@@ -51,11 +51,13 @@ fun main() {
             }
             post("/batalha/{nomejogador}"){
                 val nomejogador = call.parameters["nomejogador"]
-                println(nomejogador)
+                println("-------${nomejogador}--------")
                 var retorno : String = batalha(RPG.jogadores.filter{it.nome==nomejogador}[0], RPG)
                 call.respondText(retorno)
 
             }
+
+            //DELETE!!!! do monstro que perdeu a vida
 
 
 

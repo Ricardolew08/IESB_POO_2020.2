@@ -3,7 +3,7 @@ package br.iesb.poo.rpg.personagem
 open class Personagem(nick: String, element: Int) {
     var nome: String? = null
 
-    var nivel: Double = 1.0
+    var nivel: Int = 1
     var dinheiro: Int = 0
 
     var ataque: Int = 1

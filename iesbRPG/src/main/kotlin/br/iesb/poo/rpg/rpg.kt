@@ -28,6 +28,7 @@ class Rpg {
             var tamanhoarray = arraynomemonstro.size-1
             var nomevindoapi = arraynomemonstro[(0..tamanhoarray).random()]
             var elementorandomico = (1..4).random()
+
             PersonagemMonstro(novaraca, nomevindoapi, elementorandomico)
         }
         if(personagem is PersonagemJogador){

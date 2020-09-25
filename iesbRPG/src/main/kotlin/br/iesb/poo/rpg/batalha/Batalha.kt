@@ -18,8 +18,17 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg):String {
     var defesaJ: Int = jogador.defesa
     var defesaM: Int = monstro.defesa
 
-    ataqueM += (0..3).random()
-    defesaM += (0..3).random()
+    if (ataqueJ >= 3) {
+        ataqueM += (ataqueJ - 2..ataqueJ + 1).random()
+    } else {
+        ataqueM += (0..ataqueJ + 1).random()
+    }
+    if (defesaJ >= 3) {
+        defesaM += (defesaJ - 2..defesaJ + 1).random()
+    } else {
+        defesaM += (0..defesaJ + 1).random()
+    }
+
 
     val chanceterreno: Int = (1..4).random()
 
@@ -39,19 +48,21 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg):String {
         defesaM--
 
 
-
     val iniciativa: Int = (0..10).random()
     if (5 + jogador.sorte > iniciativa) {
         log += "Você atacou o monstro primeiro!\n"
 
         while (defesaJ > 0 || defesaM > 0) {
             defesaM -= ataqueJ
+            println("Jogador atacou monstro  ! ataque jogador : ${ataqueJ} defesa monstro: ${defesaM}")
             if (defesaM <= 0) {
                 jogador.Ganhar()
                 break
             }
 
             defesaJ -= ataqueM
+            println("Monstro atacou jogador  !ataque monstro: ${ataqueM} defesa jogador: ${defesaJ}")
+
             if (defesaJ <= 0) {
                 jogador.Perder()
                 break
@@ -60,22 +71,26 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg):String {
         }
 
 
-    } else
+    } else {
         log += "EMBOSCADA! Monstro começou a te atacar.\n"
 
-    while (defesaM > 0 || defesaJ > 0) {
-        defesaJ -= ataqueM
-        if (defesaJ <= 0) {
-            jogador.Perder()
-            break
-        }
+        while (defesaM > 0 || defesaJ > 0) {
+            defesaJ -= ataqueM
+            println("Monstro atacou jogador  !ataque monstro: ${ataqueM} defesa jogador: ${defesaJ}")
 
-        defesaM -= ataqueJ
-        if (defesaM <= 0) {
-            jogador.Ganhar()
-            break
+            if (defesaJ <= 0) {
+                jogador.Perder()
+                break
+            }
+
+            defesaM -= ataqueJ
+            println("Jogador atacou monstro  ! ataque jogador : ${ataqueJ} defesa monstro: ${defesaM}")
+
+            if (defesaM <= 0) {
+                jogador.Ganhar()
+                break
+            }
         }
     }
-
     return log
 }

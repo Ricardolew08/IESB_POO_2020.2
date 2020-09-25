@@ -1,5 +1,6 @@
 package br.iesb.poo.rpg.personagem
 
+import java.util.zip.DeflaterOutputStream
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
@@ -18,6 +19,8 @@ class PersonagemJogador( classejogador: Int,
 
     var sorte: Int = 0
 
+    var xp: Int = 0
+
     init {
         classe = classejogador
     }
@@ -28,53 +31,66 @@ class PersonagemJogador( classejogador: Int,
     }
 
     open fun Perder() {
-        this.vida.minus(1)
+        this.vida--
         this.dinheiro.times(((5..9).random()) / 10)
+        println("vida perdida:  ${this.vida}" )
         if (this.vida == 0) {
             this.Morrer()
         } else {
             println("${nome} foi abatido. \n" +
-                    "Perdeu 1 de vida e ${dinheiro} moedas de ouro")
+                    "Perdeu 1 de vida e ${this.dinheiro} moedas de ouro")
         }
 
     }
 
     open fun Ganhar() {
-//        this.dinheiro.plus(this.nivel * (1..3).random())
-        val niveltemp = (1..3).random() * this.nivel
-        this.nivel.times((1..3).random())//-log x+2
-        if (floor(niveltemp) > floor(this.nivel)) {
+        this.dinheiro += (this.nivel * (1..3).random())
+        println("Total moedas: ${this.dinheiro}")
+        val xpganho = 500
+        this.xp += xpganho
+//        this.nivel.times((2..3).random())//-log x+2
+        println("Nível: ${this.nivel}")
+        if (xpganho + this.xp >= 500 * this.nivel) {
+            this.nivel += xpganho/500
+//            val x : Double = this.nivel
             this.Upnivel()
+            println("Upou nivel")
         }
         if ((1..10).random() + this.sorte >= 9) {
             this.vida.plus(1)
+            println("Ganhou poção de vida.")
         }
-        if ((1..100).random() == 1){
+        if (this.sorte<=2 && (1..100).random() == 1){
             this.sorte.plus(1)
+            println("Ganhou sorte.")
         }
+
+        println("Monstro foi abatido. \n" +
+                "Ganhou ${dinheiro} moedas de ouro")
 
     }
 
-    open fun Upnivel() {
+    open fun Upnivel(){
 
         if (classe == 1) {
             if (elemento % 2 == 0){
-                this.ataque += 3
-                this.defesa += 1
+                this.ataque += (3 * this.nivel )
+                this.defesa += (1 * this.nivel )
             }else{
-                this.ataque += 2
-                this.defesa += 2
+                this.ataque += (2 * this.nivel)
+                this.defesa += (2 * this.nivel)
             }
 
         } else {
             if (elemento % 2 == 0){
-                this.ataque += 2
-                this.defesa += 2
+                this.ataque += (2 * this.nivel)
+                this.defesa += (2 * this.nivel)
             }else{
-                this.ataque += 1
-                this.defesa += 3
+                this.ataque += (1 * this.nivel )
+                this.defesa += (3 * this.nivel )
             }
         }
+
 
 
         if(vida<5)
