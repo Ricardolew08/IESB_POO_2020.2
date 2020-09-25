@@ -47,24 +47,39 @@ class PersonagemJogador( classejogador: Int,
             this.Upnivel()
         }
         if ((1..10).random() + this.sorte >= 9) {
-            println("Parabéns, aproveite sua poção de vida! Bad bitch")
             this.vida.plus(1)
         }
         if ((1..100).random() == 1){
             this.sorte.plus(1)
         }
 
-
     }
 
     open fun Upnivel() {
 
-        if (classe == 1) { //Relacionar clase de acordo com elementos
-            this.ataque += 2
-            this.defesa += 1
+        if (classe == 1) {
+            if (elemento % 2 == 0){
+                this.ataque += 3
+                this.defesa += 1
+            }else{
+                this.ataque += 2
+                this.defesa += 2
+            }
+
         } else {
-            this.defesa += 2
-            this.ataque += 1
+            if (elemento % 2 == 0){
+                this.ataque += 2
+                this.defesa += 2
+            }else{
+                this.ataque += 1
+                this.defesa += 3
+            }
         }
+
+
+        if(vida<5)
+            this.vida++
+
+
     }
 }

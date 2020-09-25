@@ -53,7 +53,6 @@ fun main() {
                 val nomejogador = call.parameters["nomejogador"]
                 println(nomejogador)
                 var retorno : String = batalha(RPG.jogadores.filter{it.nome==nomejogador}[0], RPG)
-                println(retorno)
                 call.respondText(retorno)
 
             }
