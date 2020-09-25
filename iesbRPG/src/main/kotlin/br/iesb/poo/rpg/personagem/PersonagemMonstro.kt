@@ -1,5 +1,7 @@
 package br.iesb.poo.rpg.personagem
 
+import br.iesb.poo.rpg.Rpg
+
 class PersonagemMonstro(
     novaRaca: Int = -1,
     nomeMonstro: String = "PLACEHOLDER",
@@ -34,7 +36,7 @@ class PersonagemMonstro(
         return Seed.plus(1)
     }
 
-    override fun derrota(): String {
+    override fun derrota(rpg: Rpg): String {
 
         return ""
     }

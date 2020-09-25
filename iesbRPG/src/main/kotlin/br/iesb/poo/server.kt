@@ -36,6 +36,7 @@ fun main() {
             post("/jogadores/criarjogador"){
                 val novojogador = call.receive<PersonagemJogador>()
                 RPG.jogadores.add(PersonagemJogador(novojogador.classe, nomeJogador = (novojogador.nome as String), novojogador.elemento, RPG.contador++))
+                call.respondText("Criado com sucesso ${novojogador.nome} de ID:${RPG.contador-1}", status = HttpStatusCode.Created)
             }
             post("/batalha/{idURL}"){
                 val idJogador = call.parameters["idURL"]?.toInt()

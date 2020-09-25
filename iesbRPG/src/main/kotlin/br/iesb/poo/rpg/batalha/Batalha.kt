@@ -70,7 +70,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
             if (defesaJ <= 0) {
                 log += "[ = ] JOGADOR PERDEU\n"
-                log += jogador.derrota()
+                log += jogador.derrota(RPG)
                 break
             }
         }
@@ -84,7 +84,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
             if (defesaJ <= 0) {
                 log += "[ = ] JOGADOR PERDEU\n"
-                log += jogador.derrota()
+                log += jogador.derrota(RPG)
                 break
             }
 

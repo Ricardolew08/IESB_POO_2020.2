@@ -1,5 +1,7 @@
 package br.iesb.poo.rpg.personagem
 
+import br.iesb.poo.rpg.Rpg
+
 
 open class Personagem(nick: String, element: Int) {
 
@@ -26,12 +28,12 @@ open class Personagem(nick: String, element: Int) {
         return 0
     }
 
-    protected fun morrer() {
-
-    }
+//    protected fun morrer() {
+//
+//    }
 
     //INTERFACE
-    open fun derrota(): String {
+    open fun derrota(rpg: Rpg): String {
         return ""
     }
 }

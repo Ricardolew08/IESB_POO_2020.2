@@ -1,5 +1,7 @@
 package br.iesb.poo.rpg.personagem
 
+import br.iesb.poo.rpg.Rpg
+
 class PersonagemJogador(
     classeJogador: Int,
     nomeJogador: String,
@@ -15,7 +17,7 @@ class PersonagemJogador(
     var classe: Int = classeJogador
 
     var sorte: Int = 0
-    private var vida: Int = 5
+    private var vida: Int = 1
     private var xp: Int = 0
 
     /*
@@ -24,11 +26,29 @@ class PersonagemJogador(
     }
     */
 
-    private fun morrerJogador() {
+    private fun morrerJogador(rpg: Rpg) {
 
+        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id}[0])
+
+
+
+//        println("entrou")
+//        if (rpg.jogadores.size == 1){
+//            rpg.jogadores.removeAt(0)
+//        }else {
+//            for (i in 0 until rpg.jogadores.size - 1) {
+//                println("Entrasse")
+//                println("i $i rpg.jogadores ${rpg.jogadores[i].id} esse id ${this.id}")
+//                if (rpg.jogadores[i].id == this.id) {
+//                    rpg.jogadores.removeAt(i)
+//                    println("removido jogador com id ${this.id}")
+//                    break
+//                }
+//            }
+//        }
     }
 
-    override fun derrota(): String {
+    override fun derrota(rpg: Rpg): String {
         this.vida--
         this.dinheiro.times(((5..9).random()) / 10)
 
@@ -37,7 +57,8 @@ class PersonagemJogador(
         if (this.vida <= 0) {
 
             log += "[ :c ] VOCÊ MORREU\n"
-            this.morrerJogador()
+            println("morreu")
+            this.morrerJogador(rpg)
 
         } else {
 
