@@ -26,25 +26,13 @@ class Rpg {
         "Abaishar, o Assado"
     )
 
-    var contador = 0
+    var contadorJ = 0
+    var contadorM = 0
 
     fun criarMonstro(
         tipoPersonagem: TipoPersonagem,
         jogadorBaseBatalha: PersonagemJogador
     ): PersonagemMonstro {
-
-//        if (tipoPersonagem == TipoPersonagem.PERSONAGEM_MONSTRO) {
-//            val novoPersonagem = PersonagemMonstro(
-//                novaRaca = (1..2).random(),
-//                (listaNomes).random(),
-//                elementoMonstro = (1..4).random(),
-//                jogadorBase = jogadorBaseBatalha,
-//            )
-//            monstros.add(novoPersonagem)
-//            return novoPersonagem
-//        }
-//        if (tipoPersonagem == TipoPersonagem.PERSONAGEM_BOSS){}
-
         val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_BOSS) {
             PersonagemMonstro(
                 //TEMP
@@ -52,6 +40,7 @@ class Rpg {
                 (listaNomes).random(),
                 elementoMonstro = (1..4).random(),
                 jogadorBase = jogadorBaseBatalha,
+                idNumero = contadorM++
             )
         } else {
             PersonagemMonstro(
@@ -59,6 +48,7 @@ class Rpg {
                 (listaNomes).random(),
                 elementoMonstro = (1..4).random(),
                 jogadorBase = jogadorBaseBatalha,
+                idNumero = contadorM++
             )
         }
         monstros.add(novoPersonagem)

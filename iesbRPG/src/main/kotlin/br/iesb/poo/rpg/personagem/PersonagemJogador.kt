@@ -7,17 +7,15 @@ class PersonagemJogador(
     nomeJogador: String,
     elementoJogador: Int,
     idNumero: Int
-) : Personagem(nomeJogador, elementoJogador) {
+) : Personagem(nomeJogador, elementoJogador, idNumero) {
 
     //Arqueiro = 1; Cavaleiro = 2
     //Arqueiro + Ataque; Cavaleiro + Defesa
 
-    var id: Int = idNumero
-
     var classe: Int = classeJogador
 
     var sorte: Int = 0
-    private var vida: Int = 1
+    var vida: Int = 5
     private var xp: Int = 0
 
     /*
@@ -26,39 +24,20 @@ class PersonagemJogador(
     }
     */
 
-    private fun morrerJogador(rpg: Rpg) {
-
-        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id}[0])
-
-
-
-//        println("entrou")
-//        if (rpg.jogadores.size == 1){
-//            rpg.jogadores.removeAt(0)
-//        }else {
-//            for (i in 0 until rpg.jogadores.size - 1) {
-//                println("Entrasse")
-//                println("i $i rpg.jogadores ${rpg.jogadores[i].id} esse id ${this.id}")
-//                if (rpg.jogadores[i].id == this.id) {
-//                    rpg.jogadores.removeAt(i)
-//                    println("removido jogador com id ${this.id}")
-//                    break
-//                }
-//            }
-//        }
+    private fun morrerJogador(rpg: Rpg): String {
+        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id }[0])
+        return "[ ✝ ] VOCÊ MORREU, SEU PERSONAGEM FOI DELETADO\n"
     }
 
     override fun derrota(rpg: Rpg): String {
         this.vida--
         this.dinheiro.times(((5..9).random()) / 10)
 
-        var log = "[ :/ ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
+        var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
 
         if (this.vida <= 0) {
 
-            log += "[ :c ] VOCÊ MORREU\n"
-            println("morreu")
-            this.morrerJogador(rpg)
+            log += this.morrerJogador(rpg)
 
         } else {
 
@@ -74,12 +53,11 @@ class PersonagemJogador(
         this.xp += xpganho
 
         var log =
-            "[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU ${xpganho} XP NO NÍVEL ${this.nivel}\n"
+            "[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU $xpganho XP NO NÍVEL ${this.nivel}\n"
 
         if (xpganho + this.xp >= 500 * this.nivel) {
             this.nivel += xpganho / 500
-            this.Upnivel()
-            log += "[ ↑ ] VOCÊ UPOU E AGORA ESTÁ NO NÍVEL ${this.nivel}\n"
+            log += this.nivelUp()
         }
 
         if ((1..10).random() + this.sorte >= 9) {
@@ -89,13 +67,13 @@ class PersonagemJogador(
 
         if (this.sorte <= 2 && (1..100).random() == 1) {
             this.sorte.plus(1)
-            log += "[ ♣ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS\n"
+            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS\n"
         }
 
         return log
     }
 
-    fun Upnivel() {
+    private fun nivelUp(): String {
 
         if (classe == 1) {
             if (elemento % 2 == 0) {
@@ -105,7 +83,6 @@ class PersonagemJogador(
                 this.ataque += (2 * this.nivel)
                 this.defesa += (2 * this.nivel)
             }
-
         } else {
             if (elemento % 2 == 0) {
                 this.ataque += (2 * this.nivel)
@@ -116,7 +93,11 @@ class PersonagemJogador(
             }
         }
 
-        if (vida < 5)
+        var log = "[ ↑ ] VOCÊ UPOU E AGORA ESTÁ NO NÍVEL ${this.nivel}\n"
+        if (vida < 5) {
             this.vida++
+            log += "[ ♥ ] VOCÊ ESTAVA COM POUCA VIDA E ESSA BATALHA TE REVIGOROU, AGORA SUA VIDA É ${this.vida}\n"
+        }
+        return log
     }
 }

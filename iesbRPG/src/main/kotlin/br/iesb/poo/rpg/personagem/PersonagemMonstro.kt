@@ -6,13 +6,12 @@ class PersonagemMonstro(
     novaRaca: Int = -1,
     nomeMonstro: String = "PLACEHOLDER",
     elementoMonstro: Int = -1,
-    jogadorBase: PersonagemJogador
-) : Personagem(nomeMonstro, elementoMonstro) {
+    jogadorBase: PersonagemJogador,
+    idNumero: Int
+) : Personagem(nomeMonstro, elementoMonstro, idNumero) {
 
     // Orc = 1; Goblin = 2
     // Orc + Defesa; Goblin + Ataque
-
-    var id: Int = 0
 
     var raca: Int = 0
 
@@ -37,7 +36,7 @@ class PersonagemMonstro(
     }
 
     override fun derrota(rpg: Rpg): String {
-
+        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id }[0])
         return ""
     }
 

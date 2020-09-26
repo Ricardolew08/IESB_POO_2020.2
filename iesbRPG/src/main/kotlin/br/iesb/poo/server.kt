@@ -13,7 +13,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
 
-val RPG : Rpg = Rpg()
+val RPG: Rpg = Rpg()
 
 fun main() {
     embeddedServer(Netty, 8080) {
@@ -23,27 +23,83 @@ fun main() {
                     setPrettyPrinting()
                 }
             }
+
             get("/") {
-                call.respondText("<h1>Hello Kenniston !!!! </h1> </br> <h2>Programação Orientada a Objetos P1</h2> ", ContentType.Text.Html)
+                call.respondText(
+                    "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2> ",
+                    ContentType.Text.Html
+                )
             }
-            get("/jogadores"){
-                call.respond(RPG.jogadores)
+
+            get("/jogadores") {
+                if (RPG.jogadores.isNotEmpty()) {
+                    call.respond(RPG.jogadores)
+                } else {
+                    call.respond(HttpStatusCode.NoContent)
+                }
             }
-            get("/monstros"){
-                call.respond(RPG.monstros)
+
+            get("/monstros") {
+                if (RPG.monstros.isNotEmpty()) {
+                    call.respond(RPG.monstros)
+                } else {
+                    call.respond(HttpStatusCode.NoContent)
+                }
             }
             // check disponibilidade do nome do jogador
-            post("/jogadores/criarjogador"){
+            post("/jogadores/criarjogador") {
                 val novojogador = call.receive<PersonagemJogador>()
-                RPG.jogadores.add(PersonagemJogador(novojogador.classe, nomeJogador = (novojogador.nome as String), novojogador.elemento, RPG.contador++))
-                call.respondText("Criado com sucesso ${novojogador.nome} de ID:${RPG.contador-1}", status = HttpStatusCode.Created)
+                RPG.jogadores.add(
+                    PersonagemJogador(
+                        novojogador.classe,
+                        (novojogador.nome),
+                        novojogador.elemento,
+                        RPG.contadorJ++
+                    )
+                )
+                call.respondText(
+                    "Criado com sucesso ${novojogador.nome} de ID:${RPG.contadorJ - 1}",
+                    status = HttpStatusCode.Created
+                )
             }
-            post("/batalha/{idURL}"){
+
+            post("/batalha/{idURL}") {
                 val idJogador = call.parameters["idURL"]?.toInt()
-                val log : String = batalha(RPG.jogadores.filter{it.id==idJogador}[0], RPG)
-                call.respondText(log)
+                val jogador = RPG.jogadores.find { it.id == idJogador }
+                if (jogador != null) {
+                    val log: String = batalha(jogador, RPG)
+                    call.respondText(log)
+                } else {
+                    call.respond(HttpStatusCode.NoContent)
+                }
             }
-            //DELETE!!!! do monstro que perdeu a vida
+
+            put("/loja/{idURL}") {
+                val idJogador = call.parameters["idURL"]?.toInt()
+                val jogador = RPG.jogadores.find { it.id == idJogador }
+                if (jogador != null) {
+                    println("AAAAA")
+                    if (jogador.dinheiro >= 10) {
+                        jogador.dinheiro -= 10
+                        jogador.vida++
+                        call.respondText(
+                            "${jogador.nome} comprou uma poção de vida e gastou 10 moedas, agora você possui ${jogador.dinheiro} moedas de ouro e ${jogador.vida} vidas.",
+                            status = HttpStatusCode.Accepted
+                        )
+                    } else {
+                        call.respondText(
+                            "${jogador.nome} não possui 10 moedas de ouro para comprar uma poção de vida.",
+                            status = HttpStatusCode.Forbidden
+                        )
+                    }
+                } else {
+                    call.respond(HttpStatusCode.NoContent)
+                }
+            }
+            /*
+            delete()
+            {
+            */
         }
     }.start(wait = true)
 }

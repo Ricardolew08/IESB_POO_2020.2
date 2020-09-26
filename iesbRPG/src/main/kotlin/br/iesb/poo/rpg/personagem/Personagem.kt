@@ -2,10 +2,10 @@ package br.iesb.poo.rpg.personagem
 
 import br.iesb.poo.rpg.Rpg
 
+open class Personagem(nick: String, element: Int, idNumero: Int) {
 
-open class Personagem(nick: String, element: Int) {
-
-    var nome: String? = null
+    var id: Int = idNumero
+    var nome: String = nick
 
     var nivel: Int = 1
     var dinheiro: Int = 0
@@ -17,20 +17,11 @@ open class Personagem(nick: String, element: Int) {
     // Água > Fogo > Ar > Terra > Água [...]
     // Terreno igual ao seu, +1 de defesa; Ganho na hierarquia de elemento em relação ao oponente = +1 ataque
 
-    var elemento: Int = 0
-
-    init {
-        nome = nick
-        elemento = element
-    }
+    var elemento: Int = element
 
     protected open fun genId(Seed: Int): Int {
         return 0
     }
-
-//    protected fun morrer() {
-//
-//    }
 
     //INTERFACE
     open fun derrota(rpg: Rpg): String {

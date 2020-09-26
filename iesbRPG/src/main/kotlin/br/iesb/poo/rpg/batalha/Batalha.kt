@@ -50,7 +50,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
     val iniciativa: Int = (0..10).random()
     var turno = 1
 
-    if (5 + jogador.sorte > iniciativa) { // OTIMIZAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR
+    if (7 + jogador.sorte > iniciativa) { // OTIMIZAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR
         log += "[ * ] JOGADOR INICIOU O COMBATE\n"
 
         while (defesaJ > 0 || defesaM > 0) {
