@@ -48,17 +48,16 @@ fun main() {
             }
             // check disponibilidade do nome do jogador
             post("/jogadores/criarjogador") {
-                val novojogador = call.receive<PersonagemJogador>()
-                RPG.jogadores.add(
-                    PersonagemJogador(
-                        novojogador.classe,
-                        (novojogador.nome),
-                        novojogador.elemento,
-                        RPG.contadorJ++
-                    )
+                val atributos = call.receive<PersonagemJogador>()
+                var novojogador = PersonagemJogador(
+                        atributos.classe,
+                        atributos.nome,
+                        atributos.elemento,
+                        RPG
                 )
+                RPG.jogadores.add(novojogador)
                 call.respondText(
-                    "Criado com sucesso ${novojogador.nome} de ID:${RPG.contadorJ - 1}",
+                    "Criado com sucesso ${novojogador.nome} de ID:${novojogador.id}",
                     status = HttpStatusCode.Created
                 )
             }
@@ -74,11 +73,10 @@ fun main() {
                 }
             }
 
-            put("/loja/{idURL}") {
+            put("/loja_do_seu_jorge/{idURL}") {
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
                 if (jogador != null) {
-                    println("AAAAA")
                     if (jogador.dinheiro >= 10) {
                         jogador.dinheiro -= 10
                         jogador.vida++

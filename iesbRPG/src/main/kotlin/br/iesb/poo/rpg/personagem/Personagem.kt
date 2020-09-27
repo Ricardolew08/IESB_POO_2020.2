@@ -2,9 +2,9 @@ package br.iesb.poo.rpg.personagem
 
 import br.iesb.poo.rpg.Rpg
 
-open class Personagem(nick: String, element: Int, idNumero: Int) {
+open class Personagem(nick: String, element: Int) {
 
-    var id: Int = idNumero
+    var id: Int = -1
     var nome: String = nick
 
     var nivel: Int = 1
@@ -19,7 +19,7 @@ open class Personagem(nick: String, element: Int, idNumero: Int) {
 
     var elemento: Int = element
 
-    protected open fun genId(Seed: Int): Int {
+    open fun genId(rpgAtual: Rpg): Int {
         return 0
     }
 

@@ -3,12 +3,21 @@ package br.iesb.poo.rpg.batalha
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.Rpg
 import br.iesb.poo.rpg.TipoPersonagem
+import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
 fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
-    val monstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_MONSTRO, jogadorBaseBatalha = jogador)
+    val monstro: PersonagemMonstro
 
-    var log = "--LOG DA BATALHA ENTRE ${jogador.nome} e ${if (monstro.raca == 1) "Orc" else "Goblin"} ${monstro.nome}--\n\n"
+    if ((1..100).random() >= 5) {
+        monstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_MONSTRO, jogadorBaseBatalha = jogador)
+    } else {
+        monstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CORINGA, jogadorBaseBatalha = jogador)
+    }
+
+    val racaMonstro = arrayOf("Orc", "Goblin", "Guinomio")
+
+    var log = "--LOG DA BATALHA ENTRE ${jogador.nome} e ${racaMonstro[monstro.raca]} ${monstro.nome} DE NÍVEL ${monstro.nivel}--\n\n"
 
     log += "[ ~ ] MONSTRO COM ELEMENTO ${monstro.elemento}\n"
     log += "[ ~ ] JOGADOR COM ELEMENTO ${jogador.elemento}\n"
@@ -59,7 +68,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
             if (defesaM <= 0) {
                 log += "[ = ] JOGADOR GANHOU\n"
-                log += jogador.vitoria()
+                log += jogador.vitoria(monstro)
                 break
             }
 
@@ -95,7 +104,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
             if (defesaM <= 0) {
                 log += "[ = ] JOGADOR GANHOU\n"
-                log += jogador.vitoria()
+                log += jogador.vitoria(monstro)
                 break
             }
         }

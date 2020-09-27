@@ -6,23 +6,29 @@ class PersonagemJogador(
     classeJogador: Int,
     nomeJogador: String,
     elementoJogador: Int,
-    idNumero: Int
-) : Personagem(nomeJogador, elementoJogador, idNumero) {
+    rpgAtual: Rpg
+) : Personagem(nomeJogador, elementoJogador) {
 
     //Arqueiro = 1; Cavaleiro = 2
     //Arqueiro + Ataque; Cavaleiro + Defesa
 
     var classe: Int = classeJogador
-
     var sorte: Int = 0
     var vida: Int = 5
     private var xp: Int = 0
 
-    /*
-    override fun genId(Seed: Int): Int { //Fazer uma função muito louca eventualmente
-        return Seed.plus(1)
+    init {
+        id = genId(rpgAtual)
     }
-    */
+
+    override fun genId(rpgAtual: Rpg): Int {
+        var novaId = (0..10000).random()
+        while (rpgAtual.jogadores.find{it.id == novaId} != null){
+            novaId = (0..10000).random()
+        }
+        return novaId
+    }
+
 
     private fun morrerJogador(rpg: Rpg): String {
         rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id }[0])
@@ -47,18 +53,26 @@ class PersonagemJogador(
         return log
     }
 
-    fun vitoria(): String {
-        this.dinheiro += (this.nivel * (1..3).random())
-        val xpganho = 500 //-logx+2
+    fun vitoria(monstro: PersonagemMonstro): String {
+        this.dinheiro += monstro.dinheiro
+        val xpganho = monstro.nivel * 100
+        var xpProxNv = 0
+        var i = 0
+        do {
+            i++
+            xpProxNv += i * 100
+        }while (i in 1 until this.nivel)
         this.xp += xpganho
-
         var log =
             "[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU $xpganho XP NO NÍVEL ${this.nivel}\n"
 
-        if (xpganho + this.xp >= 500 * this.nivel) {
-            this.nivel += xpganho / 500
+        while (this.xp >= xpProxNv) {
+            this.nivel++
             log += this.nivelUp()
+            xpProxNv += this.nivel * 100
         }
+
+        log += "XP PARA O PRÓXIMO NÍVEL: ${xpProxNv}\n"
 
         if ((1..10).random() + this.sorte >= 9) {
             this.vida.plus(1)
@@ -77,19 +91,19 @@ class PersonagemJogador(
 
         if (classe == 1) {
             if (elemento % 2 == 0) {
-                this.ataque += (3 * this.nivel)
-                this.defesa += (1 * this.nivel)
+                this.ataque += (3)
+                this.defesa += (1)
             } else {
-                this.ataque += (2 * this.nivel)
-                this.defesa += (2 * this.nivel)
+                this.ataque += (2)
+                this.defesa += (2)
             }
         } else {
             if (elemento % 2 == 0) {
-                this.ataque += (2 * this.nivel)
-                this.defesa += (2 * this.nivel)
+                this.ataque += (2)
+                this.defesa += (2)
             } else {
-                this.ataque += (1 * this.nivel)
-                this.defesa += (3 * this.nivel)
+                this.ataque += (1)
+                this.defesa += (3)
             }
         }
 

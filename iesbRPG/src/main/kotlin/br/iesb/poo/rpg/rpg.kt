@@ -1,17 +1,20 @@
 package br.iesb.poo.rpg
 
+import br.iesb.poo.RPG
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
 enum class TipoPersonagem { //enum basicamente criar classes no sentido de enumeração
     PERSONAGEM_MONSTRO,
-    PERSONAGEM_BOSS
+    PERSONAGEM_CORINGA
 }
 
 class Rpg {
 
     val jogadores = mutableListOf<PersonagemJogador>()
     val monstros = mutableListOf<PersonagemMonstro>()
+
+
 
     private val listaNomes = arrayOf(
         "Valdomiro Putão",
@@ -26,29 +29,25 @@ class Rpg {
         "Abaishar, o Assado"
     )
 
-    var contadorJ = 0
-    var contadorM = 0
-
     fun criarMonstro(
         tipoPersonagem: TipoPersonagem,
         jogadorBaseBatalha: PersonagemJogador
     ): PersonagemMonstro {
-        val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_BOSS) {
+        val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_CORINGA) {
             PersonagemMonstro(
-                //TEMP
-                novaRaca = (1..2).random(),
+                novaRaca = 2,
                 (listaNomes).random(),
-                elementoMonstro = (1..4).random(),
+                elementoMonstro = -1,
                 jogadorBase = jogadorBaseBatalha,
-                idNumero = contadorM++
+                RPG
             )
         } else {
             PersonagemMonstro(
-                novaRaca = (1..2).random(),
+                novaRaca = (0..1).random(),
                 (listaNomes).random(),
                 elementoMonstro = (1..4).random(),
                 jogadorBase = jogadorBaseBatalha,
-                idNumero = contadorM++
+                RPG
             )
         }
         monstros.add(novoPersonagem)
