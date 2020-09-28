@@ -26,7 +26,7 @@ fun main() {
 
             get("/") {
                 call.respondText(
-                    "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2> ",
+                    "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2>",
                     ContentType.Text.Html
                 )
             }
@@ -46,22 +46,23 @@ fun main() {
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
-            // check disponibilidade do nome do jogador
+
             post("/jogadores/criarjogador") {
                 val atributos = call.receive<PersonagemJogador>()
-                var novojogador = PersonagemJogador(
-                        atributos.classe,
-                        atributos.nome,
-                        atributos.elemento,
-                        RPG
+                val novojogador = PersonagemJogador(
+                    atributos.classe,
+                    atributos.nome,
+                    atributos.elemento,
+                    RPG
                 )
                 RPG.jogadores.add(novojogador)
                 call.respondText(
-                    "Criado com sucesso ${novojogador.nome} de ID:${novojogador.id}",
+                    "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID:${novojogador.id}",
                     status = HttpStatusCode.Created
                 )
             }
 
+            //POST?
             post("/batalha/{idURL}") {
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
@@ -94,10 +95,7 @@ fun main() {
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
-            /*
-            delete()
-            {
-            */
+            //TODO delete(){}
         }
     }.start(wait = true)
 }

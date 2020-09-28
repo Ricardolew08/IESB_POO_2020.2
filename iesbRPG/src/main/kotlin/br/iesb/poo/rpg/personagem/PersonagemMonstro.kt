@@ -1,22 +1,23 @@
 package br.iesb.poo.rpg.personagem
 
 import br.iesb.poo.rpg.Rpg
-import kotlin.math.ceil
 
 class PersonagemMonstro(
-        novaRaca: Int = -1,
-        nomeMonstro: String = "PLACEHOLDER",
-        elementoMonstro: Int = -1,
+        novaRaca: Int,
+        nomeMonstro: String,
+        elementoMonstro: Int,
         jogadorBase: PersonagemJogador,
         rpgAtual: Rpg
 ) : Personagem(nomeMonstro, elementoMonstro) {
 
-    // Orc = 0; Goblin = 1; Guinomio = 2
+    // Orc = 0; Goblin = 1; Gnomio = 2
     // Orc + Defesa; Goblin + Ataque
 
     var raca: Int = 0
+    var derrotado = false
 
     init {
+
         id = genId(rpgAtual)
         raca = novaRaca
         this.nivel = (1..(jogadorBase.nivel) + 2).random()
@@ -44,25 +45,24 @@ class PersonagemMonstro(
             }
 
         } else {
+
             this.ataque = 0
             this.defesa = (this.nivel * 10)
             dinheiro = (this.nivel) * (this.nivel * (2..3).random())
+
         }
-
-
     }
 
     override fun genId(rpgAtual: Rpg): Int {
         var novaId = (0..10000).random()
-        while (rpgAtual.monstros.find{it.id == novaId} != null){
+        while (rpgAtual.monstros.find{it.id == novaId} != null){ //TODO EVITAR LOOP INFINITO(CONTADOR?)
             novaId = (0..10000).random()
         }
         return novaId
     }
 
     override fun derrota(rpg: Rpg): String {
-        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id }[0])
-        return ""
+        this.derrotado = true
+        return "[ c: ] ${this.nome} FOI DERROTADO\n"
     }
-
 }

@@ -7,17 +7,17 @@ import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
 fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
-    val monstro: PersonagemMonstro
-
-    if ((1..100).random() >= 5) {
-        monstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_MONSTRO, jogadorBaseBatalha = jogador)
+    val monstro: PersonagemMonstro = if ((1..100).random() >= 5) {
+        RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_MONSTRO, jogadorBaseBatalha = jogador)
     } else {
-        monstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CORINGA, jogadorBaseBatalha = jogador)
+        RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CORINGA, jogadorBaseBatalha = jogador)
     }
 
-    val racaMonstro = arrayOf("Orc", "Goblin", "Guinomio")
+    val racaMonstro = arrayOf("Orc", "Goblin", "Gnomio")
 
     var log = "--LOG DA BATALHA ENTRE ${jogador.nome} e ${racaMonstro[monstro.raca]} ${monstro.nome} DE NÍVEL ${monstro.nivel}--\n\n"
+
+    // INÍCIO CÁLCULO DOS ATRIBUTOS
 
     log += "[ ~ ] MONSTRO COM ELEMENTO ${monstro.elemento}\n"
     log += "[ ~ ] JOGADOR COM ELEMENTO ${jogador.elemento}\n"
@@ -56,24 +56,28 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
     log += "[ f ] MONSTRO FINAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ f ] JOGADOR FINAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n\n"
 
-    val iniciativa: Int = (0..10).random()
+    // FIM CÁLCULOS DE ATRIBUTOS
+    // INÍCIO COMBATE
+
+    val iniciativaM: Int = (0..10).random()
     var turno = 1
 
-    if (7 + jogador.sorte > iniciativa) { // OTIMIZAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR
+    if (7 + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
         log += "[ * ] JOGADOR INICIOU O COMBATE\n"
 
         while (defesaJ > 0 || defesaM > 0) {
             defesaM -= ataqueJ
-            log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM ${defesaM} DE DEFESA\n"
+            log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM $defesaM DE DEFESA\n"
 
             if (defesaM <= 0) {
                 log += "[ = ] JOGADOR GANHOU\n"
+                log += monstro.derrota(RPG)
                 log += jogador.vitoria(monstro)
                 break
             }
 
             defesaJ -= ataqueM
-            log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM ${defesaJ} DE DEFESA\n"
+            log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM $defesaJ DE DEFESA\n"
 
             turno++
 
@@ -83,7 +87,6 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
                 break
             }
         }
-
     } else {
         log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n"
 
@@ -104,6 +107,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
             if (defesaM <= 0) {
                 log += "[ = ] JOGADOR GANHOU\n"
+                log += monstro.derrota(RPG)
                 log += jogador.vitoria(monstro)
                 break
             }

@@ -15,15 +15,14 @@ open class Personagem(nick: String, element: Int) {
 
     // Água - 1; Fogo - 2; Ar - 3; Terra - 4;
     // Água > Fogo > Ar > Terra > Água [...]
-    // Terreno igual ao seu, +1 de defesa; Ganho na hierarquia de elemento em relação ao oponente = +1 ataque
 
     var elemento: Int = element
 
-    open fun genId(rpgAtual: Rpg): Int {
+    //INTERFACES?
+    protected open fun genId(rpgAtual: Rpg): Int {
         return 0
     }
 
-    //INTERFACE
     open fun derrota(rpg: Rpg): String {
         return ""
     }

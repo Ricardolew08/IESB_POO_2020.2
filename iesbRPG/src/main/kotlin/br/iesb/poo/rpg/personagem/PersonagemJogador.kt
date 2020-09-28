@@ -22,72 +22,81 @@ class PersonagemJogador(
     }
 
     override fun genId(rpgAtual: Rpg): Int {
+
         var novaId = (0..10000).random()
-        while (rpgAtual.jogadores.find{it.id == novaId} != null){
+        while (rpgAtual.jogadores.find { it.id == novaId } != null) { //TODO EVITAR LOOP INFINITO(CONTADOR?)
             novaId = (0..10000).random()
         }
         return novaId
     }
 
-
     private fun morrerJogador(rpg: Rpg): String {
-        rpg.jogadores.remove(rpg.jogadores.filter { it.id == this.id }[0])
+
+        rpg.jogadores.remove(rpg.jogadores.find { it.id == this.id })
         return "[ ✝ ] VOCÊ MORREU, SEU PERSONAGEM FOI DELETADO\n"
     }
 
     override fun derrota(rpg: Rpg): String {
+
         this.vida--
         this.dinheiro.times(((5..9).random()) / 10)
 
         var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
 
-        if (this.vida <= 0) {
+        log += if (this.vida <= 0) {
 
-            log += this.morrerJogador(rpg)
+            this.morrerJogador(rpg)
 
         } else {
 
-            log += "[ :0 ] VOCÊ FOI OBLITERADO E RESTARAM ${this.dinheiro} MOEDAS DE OURO\n"
+            "[ :0 ] VOCÊ FOI OBLITERADO E RESTARAM ${this.dinheiro} MOEDAS DE OURO\n"
 
         }
         return log
     }
 
-    fun vitoria(monstro: PersonagemMonstro): String {
+    fun vitoria(monstro: PersonagemMonstro): String { //CALCULAR RECOMPENSAS DE VITÓRIA NO COMBATE E ATUALIZAR NÍVEL
+
         this.dinheiro += monstro.dinheiro
         val xpganho = monstro.nivel * 100
-        var xpProxNv = 0
-        var i = 0
-        do {
-            i++
-            xpProxNv += i * 100
-        }while (i in 1 until this.nivel)
         this.xp += xpganho
+
         var log =
             "[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU $xpganho XP NO NÍVEL ${this.nivel}\n"
 
+        var xpProxNv = 0
+        var i = 0
+
+        // LOOP PARA CALCULAR XP NECESSÁRIO PARA O PRÓXIMO NÍVEL
+        do {
+            i++
+            xpProxNv += i * 100
+        } while (i in 1 until this.nivel)
+
+        // LOOP PARA ATUALIZAR NÍVEL DO PERSONAGEM CASO GANHE XP SUFICIENTE PARA MAIS DE UMA EVOLUÇÃO
         while (this.xp >= xpProxNv) {
             this.nivel++
             log += this.nivelUp()
             xpProxNv += this.nivel * 100
         }
 
-        log += "XP PARA O PRÓXIMO NÍVEL: ${xpProxNv}\n"
+        log += "[ ➽ ] XP ATUAL: ${this.xp}\n"
+        log += "[ ➽ ] XP NECESSÁRIO PARA O PRÓXIMO NÍVEL: ${xpProxNv}\n"
 
         if ((1..10).random() + this.sorte >= 9) {
             this.vida.plus(1)
-            log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NO MONSTRO, AGORA SUA VIDA É ${this.vida}\n"
+            log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
         }
 
         if (this.sorte <= 2 && (1..100).random() == 1) {
             this.sorte.plus(1)
-            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS\n"
+            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS E JÁ SE SENTE MAIS SORTUDO\n"
         }
 
         return log
     }
 
-    private fun nivelUp(): String {
+    private fun nivelUp(): String { //ATUALIZAR ATAQUE/DEFESA EM RELAÇÃO AO ELEMENTO ATUAL QUANDO AUMENTAR NÍVEL
 
         if (classe == 1) {
             if (elemento % 2 == 0) {
@@ -108,9 +117,12 @@ class PersonagemJogador(
         }
 
         var log = "[ ↑ ] VOCÊ UPOU E AGORA ESTÁ NO NÍVEL ${this.nivel}\n"
+
         if (vida < 5) {
             this.vida++
-            log += "[ ♥ ] VOCÊ ESTAVA COM POUCA VIDA E ESSA BATALHA TE REVIGOROU, AGORA SUA VIDA É ${this.vida}\n"
+
+            log += "[ ♥ ] JUNTO COM A EXPERIÊNCIA ADQUIRIDA VOCÊ SE SENTE REVIGORADO, SUA VIDA AGORA É ${this.vida}\n"
+
         }
         return log
     }

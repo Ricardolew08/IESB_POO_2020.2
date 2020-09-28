@@ -4,7 +4,7 @@ import br.iesb.poo.RPG
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
-enum class TipoPersonagem { //enum basicamente criar classes no sentido de enumeração
+enum class TipoPersonagem {
     PERSONAGEM_MONSTRO,
     PERSONAGEM_CORINGA
 }
@@ -13,8 +13,6 @@ class Rpg {
 
     val jogadores = mutableListOf<PersonagemJogador>()
     val monstros = mutableListOf<PersonagemMonstro>()
-
-
 
     private val listaNomes = arrayOf(
         "Valdomiro Putão",
