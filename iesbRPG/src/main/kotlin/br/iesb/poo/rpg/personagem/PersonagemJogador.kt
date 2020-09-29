@@ -84,12 +84,12 @@ class PersonagemJogador(
         log += "[ ➽ ] XP NECESSÁRIO PARA O PRÓXIMO NÍVEL: ${xpProxNv}\n"
 
         if ((1..10).random() + this.sorte >= 9) {
-            this.vida.plus(1)
-            log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
+                this.vida++
+                log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
         }
 
         if (this.sorte <= 2 && (1..100).random() == 1) {
-            this.sorte.plus(1)
+            this.sorte++
             log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS E JÁ SE SENTE MAIS SORTUDO\n"
         }
 
