@@ -17,6 +17,10 @@ class PersonagemJogador(
     var vida: Int = 5
     private var xp: Int = 0
 
+    //LOJA
+
+   //var inventario =
+
     init {
         id = genId(rpgAtual)
     }

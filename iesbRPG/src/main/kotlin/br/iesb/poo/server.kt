@@ -12,6 +12,7 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
+import br.iesb.poo.rpg.loja.Loja
 
 val RPG: Rpg = Rpg()
 
@@ -26,8 +27,8 @@ fun main() {
 
             get("/") {
                 call.respondText(
-                    "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2>",
-                    ContentType.Text.Html
+                        "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2>",
+                        ContentType.Text.Html
                 )
             }
 
@@ -50,15 +51,15 @@ fun main() {
             post("/jogadores/criarjogador") {
                 val atributos = call.receive<PersonagemJogador>()
                 val novojogador = PersonagemJogador(
-                    atributos.classe,
-                    atributos.nome,
-                    atributos.elemento,
-                    RPG
+                        atributos.classe,
+                        atributos.nome,
+                        atributos.elemento,
+                        RPG
                 )
                 RPG.jogadores.add(novojogador)
                 call.respondText(
-                    "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID:${novojogador.id}",
-                    status = HttpStatusCode.Created
+                        "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID:${novojogador.id}",
+                        status = HttpStatusCode.Created
                 )
             }
 
@@ -74,23 +75,14 @@ fun main() {
                 }
             }
 
-            put("/loja_do_seu_jorge/{idURL}") {
+            put("/loja_do_seu_jorge/{idURL}/{opcao}") {
                 val idJogador = call.parameters["idURL"]?.toInt()
+                val opcao = call.parameters["opcao"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
+
                 if (jogador != null) {
-                    if (jogador.dinheiro >= 10) {
-                        jogador.dinheiro -= 10
-                        jogador.vida++
-                        call.respondText(
-                            "${jogador.nome} comprou uma poção de vida e gastou 10 moedas, agora você possui ${jogador.dinheiro} moedas de ouro e ${jogador.vida} vidas.",
-                            status = HttpStatusCode.Accepted
-                        )
-                    } else {
-                        call.respondText(
-                            "${jogador.nome} não possui 10 moedas de ouro para comprar uma poção de vida.",
-                            status = HttpStatusCode.Forbidden
-                        )
-                    }
+                    val log: String = Loja(jogador, opcao)
+                    call.respondText(log)
                 } else {
                     call.respond(HttpStatusCode.NoContent)
                 }

@@ -1,0 +1,6 @@
+pocaoP 10
+pocaoM 18
+pocaoG 25
+
+arma
+
