@@ -1,6 +1,5 @@
 package br.iesb.poo.rpg.loja
 
-
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 
 fun Loja (jogadorentrada: PersonagemJogador,

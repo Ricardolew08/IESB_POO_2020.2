@@ -13,6 +13,9 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
 import br.iesb.poo.rpg.loja.Loja
+import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 val RPG: Rpg = Rpg()
 
@@ -63,8 +66,10 @@ fun main() {
                 )
             }
 
-            //POST?
             post("/batalha/{idURL}") {
+
+                //TODO menos baseada em sorte
+
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
                 if (jogador != null) {
@@ -76,6 +81,9 @@ fun main() {
             }
 
             put("/loja_do_seu_jorge/{idURL}/{opcao}") {
+
+                //TODO ajustar ao arquivo com os itens
+
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val opcao = call.parameters["opcao"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
@@ -87,6 +95,33 @@ fun main() {
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
+
+            put("/taverna/chat/{idURL}/{texto}"){
+                var msg = call.parameters["texto"].toString()
+                val idJogador = call.parameters["idURL"]?.toInt()
+                val jogador = RPG.jogadores.find { it.id == idJogador }
+
+                //Formatação da Data
+                val data = LocalDateTime.now()
+                val formato = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")
+                val formatado = data.format(formato)
+
+                if (jogador != null) {
+                    msg = "<${formatado}> ${jogador.nome} diz: " + msg + "\n";
+                    File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
+                    call.respond(HttpStatusCode.OK)
+                } else{
+                    call.respond(HttpStatusCode.NoContent)
+                }
+            }
+
+            get("/taverna/chat"){
+
+                //TODO se estiver vazio
+
+                call.respondText(File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
+            }
+
             //TODO delete(){}
         }
     }.start(wait = true)

@@ -19,7 +19,8 @@ class PersonagemJogador(
 
     //LOJA
 
-   //var inventario =
+    //var inventario = [[PotP, X], [PotM, y]...]
+    //equipados = [arma,armadura]
 
     init {
         id = genId(rpgAtual)
