@@ -12,7 +12,7 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
-import br.iesb.poo.rpg.loja.Loja
+import br.iesb.poo.rpg.loja.Itens
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -85,15 +85,22 @@ fun main() {
                 //TODO ajustar ao arquivo com os itens
 
                 val idJogador = call.parameters["idURL"]?.toInt()
-                val opcao = call.parameters["opcao"]?.toInt()
+                val opcao = call.parameters["opcao"]
                 val jogador = RPG.jogadores.find { it.id == idJogador }
-
-                if (jogador != null) {
-                    val log: String = Loja(jogador, opcao)
-                    call.respondText(log)
-                } else {
-                    call.respond(HttpStatusCode.NoContent)
+                if(idJogador!=null) {
+                    Itens.buscar(opcao)
                 }
+
+//                val idJogador = call.parameters["idURL"]?.toInt()
+//                val opcao = call.parameters["opcao"]?.toInt()
+//                val jogador = RPG.jogadores.find { it.id == idJogador }
+//
+//                if (jogador != null) {
+//                    val log: String = Loja(jogador, opcao)
+//                    call.respondText(log)
+//                } else {
+//                    call.respond(HttpStatusCode.NoContent)
+//                }
             }
 
             put("/taverna/chat/{idURL}/{texto}"){

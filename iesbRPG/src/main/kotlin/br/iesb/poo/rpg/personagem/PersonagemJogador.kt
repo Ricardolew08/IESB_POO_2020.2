@@ -26,6 +26,7 @@ class PersonagemJogador(
         id = genId(rpgAtual)
     }
 
+
     override fun genId(rpgAtual: Rpg): Int {
 
         var novaId = (0..10000).random()

@@ -1,8 +1,2 @@
-pocaoP 10
-pocaoM 18
-pocaoG 25
-
-arma
-
 potP|poção|Poção Pequena|hp1|10
-espada|arma|Espada|atk5|50
+espadaP|arma|Espada|atk5|50
