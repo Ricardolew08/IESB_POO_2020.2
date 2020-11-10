@@ -27,6 +27,8 @@ class PersonagemJogador(
     }
 
 
+    val inventario = mutableListOf<ArrayList<String>>()
+
     override fun genId(rpgAtual: Rpg): Int {
 
         var novaId = (0..10000).random()
