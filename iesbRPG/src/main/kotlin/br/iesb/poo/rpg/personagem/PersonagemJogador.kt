@@ -1,6 +1,7 @@
 package br.iesb.poo.rpg.personagem
 
 import br.iesb.poo.rpg.Rpg
+import kotlin.text.toInt as toInt1
 
 class PersonagemJogador(
     classeJogador: Int,
@@ -16,18 +17,16 @@ class PersonagemJogador(
     var sorte: Int = 0
     var vida: Int = 5
     private var xp: Int = 0
+    //var inventario = mutableListOf<ArrayList<String>>()
 
-    //LOJA
-
+    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
     //var inventario = [[PotP, X], [PotM, y]...]
     //equipados = [arma,armadura]
 
     init {
         id = genId(rpgAtual)
+
     }
-
-
-    val inventario = mutableListOf<ArrayList<String>>()
 
     override fun genId(rpgAtual: Rpg): Int {
 
@@ -133,5 +132,9 @@ class PersonagemJogador(
 
         }
         return log
+    }
+
+    open fun adicionarItem(jogador : PersonagemJogador ,id: String, qtd : Int){
+        (jogador.inventario.find{it[0] == id}!![1])
     }
 }

@@ -30,8 +30,8 @@ fun main() {
 
             get("/") {
                 call.respondText(
-                        "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2>",
-                        ContentType.Text.Html
+                    "<h1>Hello Kenniston</h1> </br> <h2>Programação Orientada a Objetos P1</h2>",
+                    ContentType.Text.Html
                 )
             }
 
@@ -54,15 +54,15 @@ fun main() {
             post("/jogadores/criarjogador") {
                 val atributos = call.receive<PersonagemJogador>()
                 val novojogador = PersonagemJogador(
-                        atributos.classe,
-                        atributos.nome,
-                        atributos.elemento,
-                        RPG
+                    atributos.classe,
+                    atributos.nome,
+                    atributos.elemento,
+                    RPG
                 )
                 RPG.jogadores.add(novojogador)
                 call.respondText(
-                        "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID:${novojogador.id}",
-                        status = HttpStatusCode.Created
+                    "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID:${novojogador.id}",
+                    status = HttpStatusCode.Created
                 )
             }
 
@@ -85,53 +85,52 @@ fun main() {
                 //TODO ajustar ao arquivo com os itens
 
                 val idJogador = call.parameters["idURL"]?.toInt()
-                println(idJogador)
                 val opcao = call.parameters["opcao"].toString()
-                println(opcao)
                 val jogador = RPG.jogadores.find { it.id == idJogador }
 
                 if (jogador != null) {
 
-                        val itens = Itens(opcao, "", "", "", -1, jogador)
+                    val itens = Itens(opcao, "", "", "", -1, jogador)
+                    val retorno = itens.buscar(opcao)
 
-                        val retorno = itens.buscar(opcao)
+                    if (!retorno.isNullOrEmpty()) {
 
-                        if (!retorno.isNullOrEmpty()) {
+                        if (jogador.dinheiro >= retorno[4].toInt()) {
+                            jogador.dinheiro = jogador.dinheiro - retorno[4].toInt()
 
+                            jogador.adicionarItem(jogador,retorno[0],1)
 
-                            var ret: Boolean = itens.check_dinheiro(jogador, retorno[4].toInt())
-
-
-                                if(ret) {
-                                    Itens(retorno[0],
-                                            retorno[1],
-                                            retorno[2],
-                                            retorno[3],
-                                            retorno[4].toInt(),
-                                            jogador
-                                    )
-
-                                    jogador.inventario.add(retorno)
-
-                                    call.respondText ( "Você comprou ${retorno[2]} pelo valor de ${retorno[4]}! Muito Obrigada! Volte sempre",
-                                            status = (HttpStatusCode.OK) )
-                                }else{
-                                    call.respondText ( "Você não tem moedas de ouro suficientes para comprar ${retorno[2]}, E não vendemos fiado " +
-                                            "Você possui um total de  ${jogador.dinheiro} moedas!",
-                                            status = (HttpStatusCode.Forbidden) )
-
-                                }
-
-                        }else{
-                            call.respondText ( "Infelizmente estamos com falta de estoque! Muito Obrigada! Agradeçemos a compreensão",
-                                    status = (HttpStatusCode.NoContent) )
+                            call.respondText(
+                                "Você comprou ${retorno[2]} pelo valor de ${retorno[4]}! Muito Obrigada! Volte sempre",
+                                status = (HttpStatusCode.OK)
+                            )
+                        } else {
+                            call.respondText(
+                                "Você não tem moedas de ouro suficientes para comprar ${retorno[2]}, E não vendemos fiado " +
+                                        "Você possui um total de  ${jogador.dinheiro} moedas!",
+                                status = (HttpStatusCode.Forbidden)
+                            )
 
                         }
-                }else{
-                    call.respondText ( "Verifique o Id, jogador não exite!!",
-                            status = (HttpStatusCode.NoContent) )
+
+                    } else {
+                        call.respondText(
+                            "Infelizmente estamos com falta de estoque! Muito Obrigada! Agradeçemos a compreensão",
+                            status = (HttpStatusCode.NoContent)
+                        )
+
+                    }
+                } else {
+                    call.respondText(
+                        "Verifique o Id, jogador não exite!!",
+                        status = (HttpStatusCode.NoContent)
+                    )
 
                 }
+            }
+
+            put("/jogadores/usaritem/{idURL}/{opcao}") {
+
             }
 
             post("/inventario/{idURL}") {
@@ -143,13 +142,13 @@ fun main() {
                 if (jogador != null) {
                     println("entrei3")
 
-                    if(jogador.inventario.isNotEmpty()) {
+                    if (jogador.inventario.isNotEmpty()) {
                         println("entrei4")
 
                         call.respond(jogador.inventario)
-                   }else{
-                       call.respond(HttpStatusCode.NotFound)
-                   }
+                    } else {
+                        call.respond(HttpStatusCode.NotFound)
+                    }
                 } else {
                     call.respond(HttpStatusCode.NoContent)
                 }
@@ -168,7 +167,7 @@ fun main() {
 //                }
 //            }
 
-            put("/taverna/chat/{idURL}/{texto}"){
+            put("/taverna/chat/{idURL}/{texto}") {
                 var msg = call.parameters["texto"].toString()
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
@@ -182,12 +181,12 @@ fun main() {
                     msg = "<${formatado}> ${jogador.nome} diz: " + msg + "\n";
                     File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
                     call.respond(HttpStatusCode.OK)
-                } else{
+                } else {
                     call.respond(HttpStatusCode.NoContent)
                 }
             }
 
-            get("/taverna/chat"){
+            get("/taverna/chat") {
 
                 //TODO se estiver vazio
 

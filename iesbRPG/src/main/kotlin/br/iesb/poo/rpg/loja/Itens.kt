@@ -5,12 +5,14 @@ import java.io.File
 import java.nio.file.Paths
 
 
-open class Itens(identrada : String?,
-tipoentrada: String,
-nomeentrada: String,
-efeitoentrada: String,
-precoentrada: Int,
-jogador: PersonagemJogador) {
+open class Itens(
+    identrada: String?,
+    tipoentrada: String,
+    nomeentrada: String,
+    efeitoentrada: String,
+    precoentrada: Int,
+    jogador: PersonagemJogador
+) {
 
     var preco: Int = -1
 
@@ -39,58 +41,54 @@ jogador: PersonagemJogador) {
         preco = precoentrada
 
 
-
-
-
     }
-
-
-    //1-pocao 2-arma 3-armadura
-
-
-//    var retorno : Boolean = buscar(id)
 
     open fun buscar(id: String?): ArrayList<String> {
-//        var retorno: Boolean = false
-        var arr = arrayListOf<String>()
-        var teste = arrayListOf<String>()
-//        val path = Paths.get("").toAbsolutePath().toString()
+        var arrAux: ArrayList<String>
+        var retorno = arrayListOf<String>()
 
         File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/loja/item.txt").forEachLine {//[0] - id | [1] - tipo | [2] -nome | [3] -efeito | [4] - preco
-            arr = it.split("|") as ArrayList<String>
-//            retorno = true
-//            it.any{it == id}
-            if (arr[0] == id) {
-
-                teste = arr
-
+            arrAux = it.split("|") as ArrayList<String>
+            if (arrAux[0] == id) {
+                retorno = arrAux
             }
         }
-
-        return teste
+        return retorno
     }
 
-    open fun check_dinheiro(jogador:PersonagemJogador, precoentrada: Int): Boolean{
-        var retorno: Boolean
+//    open fun check_dinheiro(jogador: PersonagemJogador, precoentrada: Int): Boolean {
+//        var retorno: Boolean
+//
+//        if (jogador.dinheiro >= precoentrada) {
+//
+//            jogador.dinheiro = jogador.dinheiro - precoentrada
+//
+//
+//            return true
+//
+////            log+="${preco} moedas de ouro foram debitadas!"
+//
+//        } else {
+////            log+="Você não tem moedas de ouro suficientes para a transação!"
+//
+//            return false
+//        }
+//
+//    }
 
-        if(jogador.dinheiro >= precoentrada) {
+    open fun efeito(jogador: PersonagemJogador, id: String?) {
+        var eff = buscar(id)[3].split(".") as ArrayList<String>
+        if (eff[0] == "hp") { //jogador.eff[0]
+            jogador.vida = jogador.vida + eff[1].toInt()
 
-            jogador.dinheiro = jogador.dinheiro - precoentrada
+        } else if (eff[0] == "atk") {
+            jogador.ataque = jogador.ataque + eff[1].toInt()
 
-
-            return true
-
-//            log+="${preco} moedas de ouro foram debitadas!"
-
-        }else{
-//            log+="Você não tem moedas de ouro suficientes para a transação!"
-
-            return false
+        } else if (eff[0] == "def") {
+            jogador.defesa = jogador.defesa + eff[1].toInt()
         }
-
+        //jogador.removerItem(id)
     }
-
-//    open fun EFEITO
 
 }
 
