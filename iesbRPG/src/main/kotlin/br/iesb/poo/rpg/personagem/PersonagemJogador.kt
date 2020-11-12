@@ -17,9 +17,13 @@ class PersonagemJogador(
     var sorte: Int = 0
     var vida: Int = 5
     private var xp: Int = 0
-    //var inventario = mutableListOf<ArrayList<String>>()
+    var inventario = mutableListOf<ArrayList<String>>()
 
-    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
+//    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
+
+//    val inventario = mutableListOf<String>()
+
+
     //var inventario = [[PotP, X], [PotM, y]...]
     //equipados = [arma,armadura]
 
@@ -134,7 +138,15 @@ class PersonagemJogador(
         return log
     }
 
-    open fun adicionarItem(jogador : PersonagemJogador ,id: String, qtd : Int){
-        (jogador.inventario.find{it[0] == id}!![1])
-    }
+//    open fun adicionarItem(jogador : PersonagemJogador ,id: String, qtd : Int): {
+////       (jogador.inventario.find{it[0] == id}!![1])
+////        println(jogador.inventario)
+////        (jogador.inventario.find { it[0][0].toString() == id }?.set(1,qtd.toString()))
+////        println(jogador.inventario)
+//
+//
+//
+//
+//
+//    }
 }

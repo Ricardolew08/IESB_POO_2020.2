@@ -93,12 +93,47 @@ fun main() {
                     val itens = Itens(opcao, "", "", "", -1, jogador)
                     val retorno = itens.buscar(opcao)
 
+//                    var arrayteste = arrayListOf<String>()
+//
+//                    println(arrayteste[0])
+
                     if (!retorno.isNullOrEmpty()) {
 
                         if (jogador.dinheiro >= retorno[4].toInt()) {
                             jogador.dinheiro = jogador.dinheiro - retorno[4].toInt()
 
-                            jogador.adicionarItem(jogador,retorno[0],1)
+//                            var item = jogador.inventario.find{it[0] == opcao}
+//                            println(item)
+//                            if(item!= null){
+//
+//                                println("oi")
+//                                var quantidade = itens.qtd++
+//
+//                                arrayteste.set(0,retorno[0])
+//
+//                                arrayteste.set(1,quantidade.toString())
+//
+//
+//                            }else{
+//                                println("oielse")
+//                                arrayteste.set(0,retorno[0])
+//                                arrayteste.set(1,"1")
+//                            }
+
+                            itens.efeito(jogador,opcao)
+
+                            jogador.inventario.add(retorno)
+
+
+//                            jogador.adicionarItem(jogador,retorno[0],0)
+//                            val ite = (jogador.inventario.find{it[0].toString() == opcao}!![1])
+//                            if(ite) {
+//                                val qtdItem = itens.qtd + 1
+//                                jogador.inventario.add(qtdItem.toString())
+//                            }else{
+//                                jogador.inventario.add(retorno[0].toInt(),"1")
+//                            }
+
 
                             call.respondText(
                                 "Você comprou ${retorno[2]} pelo valor de ${retorno[4]}! Muito Obrigada! Volte sempre",
@@ -139,6 +174,8 @@ fun main() {
 
                 val idJogador = call.parameters["idURL"]?.toInt()
                 val jogador = RPG.jogadores.find { it.id == idJogador }
+
+
                 if (jogador != null) {
                     println("entrei3")
 

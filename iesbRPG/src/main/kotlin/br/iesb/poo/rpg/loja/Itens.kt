@@ -24,6 +24,8 @@ open class Itens(
 
     var tipo: String = ""
 
+    var qtd: Int = 0
+
 
     init {
 
