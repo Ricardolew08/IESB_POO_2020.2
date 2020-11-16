@@ -3,9 +3,10 @@ package br.iesb.poo.rpg.batalha
 import br.iesb.poo.rpg.personagem.PersonagemJogador
 import br.iesb.poo.rpg.Rpg
 import br.iesb.poo.rpg.TipoPersonagem
+import br.iesb.poo.rpg.personagem.PersonagemAjudante
 import br.iesb.poo.rpg.personagem.PersonagemMonstro
 
-fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
+fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?): String {
 
     val monstro: PersonagemMonstro = if ((1..100).random() >= 5) {
         RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_MONSTRO, jogadorBaseBatalha = jogador)
@@ -27,6 +28,8 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
 
     var defesaJ: Int = jogador.defesa
     var defesaM: Int = monstro.defesa
+
+
 
     log += "[ i ] MONSTRO INICIAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ i ] JOGADOR INICIAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n"
@@ -53,6 +56,24 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
     if ((jogador.elemento + 1 == monstro.elemento || monstro.elemento == 1 && jogador.elemento == 4) && defesaM > 1)
         defesaM--
 
+
+
+    if (ajudante != null) {
+
+        if(ajudante.batalhas <3) {
+            ataqueJ = ataqueJ + ajudante.ataque
+            defesaJ = defesaJ + ajudante.defesa
+            jogador.sorte = jogador.sorte + ajudante.sorte
+
+            ajudante.batalhas++
+        }else{
+            ajudante.encerrarcontrato(RPG,jogador)
+        }
+
+
+
+    }
+
     log += "[ f ] MONSTRO FINAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ f ] JOGADOR FINAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n\n"
 
@@ -60,11 +81,13 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
     // INÍCIO COMBATE
 
 
-
     val iniciativaM: Int = (0..10).random()
     var turno = 1
 
     val INICIOTURNO = 7
+
+
+
 
     if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
         log += "[ * ] JOGADOR INICIOU O COMBATE\n"
@@ -116,7 +139,12 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
                 break
             }
         }
+
+
+        log += "\n--FIM DO COMBATE--\n"
     }
-    log += "\n--FIM DO COMBATE--\n"
+
+
+
     return log
 }

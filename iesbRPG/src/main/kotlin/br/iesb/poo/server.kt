@@ -52,6 +52,8 @@ fun main() {
                 }
             }
 
+
+
             post("/jogadores/criarjogador") {
                 val atributos = call.receive<PersonagemJogador>()
                 val novojogador = PersonagemJogador(
@@ -67,15 +69,20 @@ fun main() {
                 )
             }
 
-            post("/batalha/{idURL}") {
+            post("/batalha/{idURL}/{idajudante}") {
 
                 //TODO menos baseada em sorte
 
                 val idJogador = call.parameters["idURL"]?.toInt()
-                val jogador = RPG.jogadores.find { it.id == idJogador }
-                if (jogador != null) {
-                    val log: String = batalha(jogador, RPG)
+                val jogador = RPG.jogadores.find { it.id == idJogador}
+                val idAjudante = call.parameters["idajudante"]?.toInt()
+                val ajudante = RPG.ajudante.find {it.id == idAjudante}
+                if (jogador != null && idAjudante != null) {
+                    val log: String = batalha(jogador, RPG, ajudante)
+                    jogador.batalhas++
                     call.respondText(log)
+                }else if (jogador != null && idAjudante == null) {
+                    val log: String = batalha(jogador, RPG, ajudante)
                 } else {
                     call.respond(HttpStatusCode.NoContent)
                 }
@@ -245,7 +252,7 @@ fun main() {
 
                 if (jogador != null) {
                     msg = "<${formatado}> ${jogador.nome} diz: " + msg + "\n";
-                    File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
+                    File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
                     call.respond(HttpStatusCode.OK)
                 } else {
                     call.respond(HttpStatusCode.NoContent)
@@ -256,7 +263,7 @@ fun main() {
 
                 //TODO se estiver vazio
 
-                call.respondText(File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
+                call.respondText(File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
             }
 
             //TODO delete(){}

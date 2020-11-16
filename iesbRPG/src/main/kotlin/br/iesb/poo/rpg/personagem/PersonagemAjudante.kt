@@ -11,10 +11,15 @@ class PersonagemAjudante (classeAjudante: Int,
 
     // 0 - Escudeiro; 1 - Mago; 2 - Mestre das Cartas;
     var classe: Int = classeAjudante
+    var batalhas: Int = 0
+
     init {
 
         id = genId(rpg)
         classe = classeAjudante
+
+
+        this.dinheiro = 50
 
         this.nivel = (1..(jogadorBase.nivel) + 2).random()
 
@@ -37,5 +42,14 @@ class PersonagemAjudante (classeAjudante: Int,
             novaId = (0..10000).random()
         }
         return novaId
+    }
+
+    fun encerrarcontrato(rpg:Rpg,jogador: PersonagemJogador){
+        var ajudante = rpg.ajudante.find { it.id == this.id }
+        println(ajudante)
+        rpg.ajudante.remove(rpg.ajudante.find { it.id == this.id })
+        jogador.ajudanteAtual.remove(jogador.ajudanteAtual.find{ it.id == this.id })
+
+
     }
 }

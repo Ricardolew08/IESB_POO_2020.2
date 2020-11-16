@@ -20,6 +20,7 @@ class PersonagemJogador(
     private var xp: Int = 0
     var inventario = mutableListOf<ArrayList<String>>()
     var ajudanteAtual = mutableListOf<PersonagemAjudante>()
+    var batalhas : Int = 0
 
 //    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
 

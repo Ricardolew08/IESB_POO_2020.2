@@ -15,7 +15,7 @@ class Taverna () {
     fun Algumacoisa(jogador: PersonagemJogador, RPG : Rpg): PersonagemAjudante{
 
 
-        val ajudante: PersonagemAjudante = if ((1..100).random() >= 5) {
+        val ajudante: PersonagemAjudante = if ((1..100).random() >=5) {
             RPG.criarAjudante(TipoPersonagem.PERSONAGEM_AJUDANTE, jogador)
         } else {
             RPG.criarAjudante(TipoPersonagem.PERSONAGEM_MESTRE, jogador)

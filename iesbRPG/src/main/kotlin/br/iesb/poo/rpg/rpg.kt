@@ -65,7 +65,7 @@ class Rpg {
         tipoPersonagem: TipoPersonagem,
         jogadorBaseTaverna: PersonagemJogador): PersonagemAjudante{
         val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_MESTRE){
-            PersonagemAjudante(1, (listaAjudantes).random(), -1, jogadorBaseTaverna, RPG)
+            PersonagemAjudante(2, (listaAjudantes).random(), -1, jogadorBaseTaverna, RPG)
         }else{
             PersonagemAjudante((0..1).random(), (listaAjudantes).random(), (1..4).random(), jogadorBaseTaverna, RPG)
         }
