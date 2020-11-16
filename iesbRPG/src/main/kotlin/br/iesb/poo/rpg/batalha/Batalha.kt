@@ -59,10 +59,14 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg): String {
     // FIM CÁLCULOS DE ATRIBUTOS
     // INÍCIO COMBATE
 
+
+
     val iniciativaM: Int = (0..10).random()
     var turno = 1
 
-    if (7 + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
+    val INICIOTURNO = 7
+
+    if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
         log += "[ * ] JOGADOR INICIOU O COMBATE\n"
 
         while (defesaJ > 0 || defesaM > 0) {

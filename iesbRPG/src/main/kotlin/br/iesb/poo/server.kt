@@ -13,6 +13,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
 import br.iesb.poo.rpg.loja.Itens
+import br.iesb.poo.rpg.taverna.Taverna
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -204,6 +205,33 @@ fun main() {
 //                    call.respond(HttpStatusCode.NoContent)
 //                }
 //            }
+
+            post  ("/taverna/{idURL}" ){
+                val idJogador = call.parameters["idURL"]?.toInt()
+                val jogador = RPG.jogadores.find { it.id == idJogador }
+
+                if (jogador != null) {
+                    if (jogador.dinheiro >= 50){
+                        jogador.dinheiro = jogador.dinheiro - 50
+
+                        val tav = Taverna()
+                        var ajudante = tav.Algumacoisa(jogador, RPG)
+
+                        jogador.ajudanteAtual.add(ajudante)
+
+                        call.respondText(
+                            "Você contratou pelo valor de 50! Muito Obrigada! Volte sempre! te restaram ${jogador.dinheiro} moedas de ouro",
+                            status = (HttpStatusCode.OK)
+                        )
+                    }else{
+                        call.respondText(
+                            "Você não possui dinheiro o suficiente",
+                            status = (HttpStatusCode.Forbidden)
+                        )
+                    }
+
+                }
+            }
 
             put("/taverna/chat/{idURL}/{texto}") {
                 var msg = call.parameters["texto"].toString()

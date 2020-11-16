@@ -1,6 +1,8 @@
 package br.iesb.poo.rpg.personagem
 
 import br.iesb.poo.rpg.Rpg
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.text.toInt as toInt1
 
 class PersonagemJogador(
@@ -14,10 +16,10 @@ class PersonagemJogador(
     //Arqueiro + Ataque; Cavaleiro + Defesa
 
     var classe: Int = classeJogador
-    var sorte: Int = 0
     var vida: Int = 5
     private var xp: Int = 0
     var inventario = mutableListOf<ArrayList<String>>()
+    var ajudanteAtual = mutableListOf<PersonagemAjudante>()
 
 //    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
 
@@ -99,10 +101,10 @@ class PersonagemJogador(
                 log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
         }
 
-        if (this.sorte <= 2 && (1..100).random() == 1) {
-            this.sorte++
-            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS E JÁ SE SENTE MAIS SORTUDO\n"
-        }
+//        if (this.sorte <= 2 && (1..100).random() == 1) {
+//            this.sorte++
+//            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS E JÁ SE SENTE MAIS SORTUDO\n"
+//        }
 
         return log
     }

@@ -1,2 +1,11 @@
-potP|poção|Poção Pequena|hp.1|10
-espadaP|arma|Espada|atk.5|50
+potP|poção|uma Poção Pequena|hp.1|10
+potM|poção|uma Poção Média|hp.2|18
+potG|poção|uma Poção Grande|hp.3|26
+
+espadaP|arma|Espada|atk.5|20
+espadaM|arma|Espada|atk.10|30
+espadaG|arma|Espada|atk.20|50
+
+escudoP|armadura|Escudo|def.5|20
+escudoM|armadura|Escudo|def.10|30
+escudoG|armadura|Escudo|def.20|50

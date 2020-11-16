@@ -7,6 +7,7 @@ open class Personagem(nick: String, element: Int) {
     var id: Int = -1
     var nome: String = nick
 
+    var sorte: Int = 0
     var nivel: Int = 1
     var dinheiro: Int = 30
 
