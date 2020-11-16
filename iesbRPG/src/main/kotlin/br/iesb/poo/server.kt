@@ -97,6 +97,7 @@ fun main() {
 //
 //                    println(arrayteste[0])
 
+
                     if (!retorno.isNullOrEmpty()) {
 
                         if (jogador.dinheiro >= retorno[4].toInt()) {
