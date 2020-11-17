@@ -71,13 +71,11 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
 
 
     if (ajudante != null) {
-
+        ajudante.batalhas++
         if(ajudante.batalhas <3) {
             ataqueJ = ataqueJ + ajudante.ataque
             defesaJ = defesaJ + ajudante.defesa
             jogador.sorte = jogador.sorte + ajudante.sorte
-
-            ajudante.batalhas++
         }else{
             ajudante.encerrarcontrato(RPG,jogador)
         }
@@ -148,6 +146,98 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
                 log += "[ = ] JOGADOR GANHOU\n"
                 log += monstro.derrota(RPG)
                 log += jogador.vitoria(monstro)
+                break
+            }
+        }
+
+
+        log += "\n--FIM DO COMBATE--\n"
+    }
+
+
+
+    return log
+}
+
+fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?): String {
+
+    val chefe: PersonagemMonstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CHEFE, jogadorBaseBatalha = jogador)
+
+    var log = "--LOG DA BATALHA ENTRE ${jogador.nome} E CHEFE ${chefe.nome}--\n\n"
+
+    var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
+    var ataqueM: Int = chefe.ataque
+
+    var defesaJ: Int = jogador.defesa + jogador.defesaitem
+    var defesaM: Int = chefe.defesa
+
+    if (ajudante != null) {
+        ajudante.batalhas++
+        if(ajudante.batalhas <3) {
+            ataqueJ = ataqueJ + ajudante.ataque
+            defesaJ = defesaJ + ajudante.defesa
+            jogador.sorte = jogador.sorte + ajudante.sorte
+        }else{
+            ajudante.encerrarcontrato(RPG,jogador)
+        }
+
+    }
+
+    val iniciativaM: Int = (0..10).random()
+    var turno = 1
+
+    val INICIOTURNO = 7
+
+
+
+
+    if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
+        log += "[ * ] JOGADOR INICIOU O COMBATE\n"
+
+        while (defesaJ > 0 || defesaM > 0) {
+            defesaM -= ataqueJ
+            log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM $defesaM DE DEFESA\n"
+
+            if (defesaM <= 0) {
+                log += "[ = ] JOGADOR GANHOU\n"
+                log += chefe.derrota(RPG)
+                log += jogador.vitoria(chefe)
+                break
+            }
+
+            defesaJ -= ataqueM
+            log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM $defesaJ DE DEFESA\n"
+
+            turno++
+
+            if (defesaJ <= 0) {
+                log += "[ = ] JOGADOR PERDEU\n"
+                log += jogador.derrota(RPG)
+                break
+            }
+        }
+    } else {
+        log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n"
+
+        while (defesaM > 0 || defesaJ > 0) {
+            defesaJ -= ataqueM
+            log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM ${defesaJ}\n"
+
+            if (defesaJ <= 0) {
+                log += "[ = ] JOGADOR PERDEU\n"
+                log += jogador.derrotaChefe(RPG)
+                break
+            }
+
+            defesaM -= ataqueJ
+            log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM ${defesaM}\n"
+
+            turno++
+
+            if (defesaM <= 0) {
+                log += "[ = ] JOGADOR GANHOU\n"
+                log += chefe.derrota(RPG)
+                log += jogador.vitoria(chefe)
                 break
             }
         }

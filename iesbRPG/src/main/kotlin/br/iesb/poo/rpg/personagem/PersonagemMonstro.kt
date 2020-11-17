@@ -20,9 +20,14 @@ class PersonagemMonstro(
 
         id = genId(rpgAtual)
         raca = novaRaca
-        this.nivel = (1..(jogadorBase.nivel) + 2).random()
+        if (jogadorBase.nivel > 3){
+        this.nivel = ((jogadorBase.nivel - 2)..(jogadorBase.nivel) + 2).random()
+        } else{
+            this.nivel = (jogadorBase.nivel)
+        }
 
-        if (novaRaca != 2) {
+
+        if (novaRaca == 0 || novaRaca == 1) {
 
             dinheiro = (this.nivel * (1..2).random())
 
@@ -44,12 +49,14 @@ class PersonagemMonstro(
                 }
             }
 
-        } else {
-
+        } else if(novaRaca == 2){
             this.ataque = 0
             this.defesa = (this.nivel * 10)
             dinheiro = (this.nivel) * (this.nivel * (2..3).random())
-
+        } else{
+            this.ataque = ((5..10).random() * this.nivel)
+            this.defesa = ((5..10).random() * this.nivel)
+            dinheiro = (this.nivel) * (this.nivel * (5..6).random())
         }
     }
 

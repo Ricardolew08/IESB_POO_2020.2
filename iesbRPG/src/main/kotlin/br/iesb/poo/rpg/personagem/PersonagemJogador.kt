@@ -57,7 +57,26 @@ class PersonagemJogador(
     override fun derrota(rpg: Rpg): String {
 
         this.vida--
-        this.dinheiro.times(((5..9).random()) / 10)
+        this.dinheiro = this.dinheiro / 2
+
+        var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
+
+        log += if (this.vida <= 0) {
+
+            this.morrerJogador(rpg)
+
+        } else {
+
+            "[ :0 ] VOCÊ FOI OBLITERADO E RESTARAM ${this.dinheiro} MOEDAS DE OURO\n"
+
+        }
+        return log
+    }
+
+    fun derrotaChefe(rpg: Rpg): String {
+
+        this.vida = this.vida - 2
+        this.dinheiro = this.dinheiro / 10
 
         var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
 
@@ -118,7 +137,7 @@ class PersonagemJogador(
 
         if (classe == 1) {
             if (elemento % 2 == 0) {
-                this.ataque += (3)
+                this.ataque += (2)
                 this.defesa += (1)
             } else {
                 this.ataque += (2)
@@ -130,7 +149,7 @@ class PersonagemJogador(
                 this.defesa += (2)
             } else {
                 this.ataque += (1)
-                this.defesa += (3)
+                this.defesa += (2)
             }
         }
 

@@ -12,6 +12,7 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import br.iesb.poo.rpg.batalha.batalha
+import br.iesb.poo.rpg.batalha.batalhaChefe
 import br.iesb.poo.rpg.loja.Itens
 import br.iesb.poo.rpg.taverna.Taverna
 import java.io.File
@@ -77,16 +78,32 @@ fun main() {
                 val jogador = RPG.jogadores.find { it.id == idJogador}
                 val idAjudante = call.parameters["idajudante"]?.toInt()
                 val ajudante = RPG.ajudante.find {it.id == idAjudante}
-                if (jogador != null && idAjudante != null) {
-                    val log: String = batalha(jogador, RPG, ajudante)
-                    jogador.batalhas++
 
-                    call.respondText(log)
-                }else if (jogador != null && idAjudante == null) {
-                    val log: String = batalha(jogador, RPG, ajudante)
+                if (jogador != null && ajudante != null) {
+                    if (jogador.batalhas % 10 == 0 && (1..10).random() > 8){
+                        val log: String = batalhaChefe(jogador, RPG, ajudante)
+                        call.respondText(log)
+                    }else {
+                        val log: String = batalha(jogador, RPG, ajudante)
+                        call.respondText(log)
+                    }
+                    jogador.batalhas++
+                }else if (jogador != null && ajudante == null) {
+                    if (jogador.batalhas % 10 == 0 && (1..10).random() > 8){
+                        val log: String = batalhaChefe(jogador, RPG, ajudante)
+                        call.respondText(log)
+                    }else {
+                        val log: String = batalha(jogador, RPG, ajudante)
+                        call.respondText(log)
+                    }
+                    jogador.batalhas++
                 } else {
                     call.respond(HttpStatusCode.NoContent)
                 }
+
+
+
+
             }
 
             post("/loja/{idURL}/{opcao}") {

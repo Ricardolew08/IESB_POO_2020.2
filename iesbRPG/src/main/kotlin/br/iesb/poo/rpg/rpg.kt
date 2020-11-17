@@ -10,7 +10,8 @@ enum class TipoPersonagem {
     PERSONAGEM_MONSTRO,
     PERSONAGEM_CORINGA,
     PERSONAGEM_AJUDANTE,
-    PERSONAGEM_MESTRE
+    PERSONAGEM_MESTRE,
+    PERSONAGEM_CHEFE
 }
 
 class Rpg {
@@ -40,6 +41,7 @@ class Rpg {
         tipoPersonagem: TipoPersonagem,
         jogadorBaseBatalha: PersonagemJogador
     ): PersonagemMonstro {
+
         val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_CORINGA) {
             PersonagemMonstro(
                 novaRaca = 2,
@@ -48,7 +50,7 @@ class Rpg {
                 jogadorBase = jogadorBaseBatalha,
                 RPG
             )
-        } else {
+        } else if (tipoPersonagem == TipoPersonagem.PERSONAGEM_MONSTRO){
             PersonagemMonstro(
                 novaRaca = (0..1).random(),
                 (listaNomes).random(),
@@ -56,7 +58,17 @@ class Rpg {
                 jogadorBase = jogadorBaseBatalha,
                 RPG
             )
+        } else{
+            PersonagemMonstro(
+                novaRaca = 3,
+                (listaNomes).random(),
+                elementoMonstro = -1,
+                jogadorBase = jogadorBaseBatalha,
+                RPG
+            )
         }
+
+
         monstros.add(novoPersonagem)
         return novoPersonagem
     }
@@ -72,4 +84,5 @@ class Rpg {
         ajudante.add(novoPersonagem)
         return novoPersonagem
     }
+
 }
