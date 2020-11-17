@@ -80,6 +80,7 @@ fun main() {
                 if (jogador != null && idAjudante != null) {
                     val log: String = batalha(jogador, RPG, ajudante)
                     jogador.batalhas++
+
                     call.respondText(log)
                 }else if (jogador != null && idAjudante == null) {
                     val log: String = batalha(jogador, RPG, ajudante)
@@ -101,9 +102,6 @@ fun main() {
                     val itens = Itens(opcao, "", "", "", -1, jogador)
                     val retorno = itens.buscar(opcao)
 
-//                    var arrayteste = arrayListOf<String>()
-//
-//                    println(arrayteste[0])
 
 
                     if (!retorno.isNullOrEmpty()) {
@@ -111,37 +109,9 @@ fun main() {
                         if (jogador.dinheiro >= retorno[4].toInt()) {
                             jogador.dinheiro = jogador.dinheiro - retorno[4].toInt()
 
-//                            var item = jogador.inventario.find{it[0] == opcao}
-//                            println(item)
-//                            if(item!= null){
-//
-//                                println("oi")
-//                                var quantidade = itens.qtd++
-//
-//                                arrayteste.set(0,retorno[0])
-//
-//                                arrayteste.set(1,quantidade.toString())
-//
-//
-//                            }else{
-//                                println("oielse")
-//                                arrayteste.set(0,retorno[0])
-//                                arrayteste.set(1,"1")
-//                            }
 
-                            itens.efeito(jogador,opcao)
-
+                            itens.efeito(jogador, opcao)
                             jogador.inventario.add(retorno)
-
-
-//                            jogador.adicionarItem(jogador,retorno[0],0)
-//                            val ite = (jogador.inventario.find{it[0].toString() == opcao}!![1])
-//                            if(ite) {
-//                                val qtdItem = itens.qtd + 1
-//                                jogador.inventario.add(qtdItem.toString())
-//                            }else{
-//                                jogador.inventario.add(retorno[0].toInt(),"1")
-//                            }
 
 
                             call.respondText(
@@ -173,9 +143,31 @@ fun main() {
                 }
             }
 
-            put("/jogadores/usaritem/{idURL}/{opcao}") {
-
-            }
+//            put("/jogadores/usaritem/{idURL}/{opcao}") {
+//                val idJogador = call.parameters["idURL"]?.toInt()
+//                val idopcao = call.parameters["opcao"].toString()
+//                val jogador = RPG.jogadores.find { it.id == idJogador }
+//
+//                if (jogador != null) {
+//                    if (idopcao == (jogador.inventario.find { it.get(1) == "poção" }).toString()) {
+//
+//                        val itens = Itens(idopcao, "", "", "", -1, jogador)
+//
+//                        if (itens != null) {
+//                            itens.efeito(jogador, idopcao)
+//
+//                            jogador.inventario.remove(jogador.inventario.find { it.get(0) == idopcao })
+//                        }
+//
+//                        call.respondText(
+//                                "Você usou sua poção de vida !!",
+//                                status = (HttpStatusCode.OK)
+//                        )
+//                    }
+//
+//                }
+//
+//            }
 
             post("/inventario/{idURL}") {
 
@@ -266,7 +258,7 @@ fun main() {
                 call.respondText(File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
             }
 
-            //TODO delete(){}
+
         }
     }.start(wait = true)
 }

@@ -49,7 +49,7 @@ class PersonagemAjudante (classeAjudante: Int,
         println(ajudante)
         rpg.ajudante.remove(rpg.ajudante.find { it.id == this.id })
         jogador.ajudanteAtual.remove(jogador.ajudanteAtual.find{ it.id == this.id })
-
-
     }
+
+
 }

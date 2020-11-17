@@ -21,6 +21,10 @@ class PersonagemJogador(
     var inventario = mutableListOf<ArrayList<String>>()
     var ajudanteAtual = mutableListOf<PersonagemAjudante>()
     var batalhas : Int = 0
+    var durabilidadeataque : Int = 3
+    var durabilidadedefesa : Int = 3
+    var ataqueitem: Int = 0
+    var defesaitem: Int = 0
 
 //    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
 
@@ -150,6 +154,12 @@ class PersonagemJogador(
 //
 //
 //
+//
+//    }
+
+//    open fun removerItem (jogador: PersonagemJogador, id: String){
+//
+//            jogador.inventario.remove(jogador.inventario.find { it.get(1) == id })
 //
 //    }
 }

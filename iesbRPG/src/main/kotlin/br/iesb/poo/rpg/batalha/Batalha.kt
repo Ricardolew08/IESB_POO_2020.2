@@ -23,10 +23,22 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     log += "[ ~ ] MONSTRO COM ELEMENTO ${monstro.elemento}\n"
     log += "[ ~ ] JOGADOR COM ELEMENTO ${jogador.elemento}\n"
 
-    var ataqueJ: Int = jogador.ataque
+//    if(jogador.ataqueitem > 0){
+//        jogador.durabilidadeataque --
+//    }else if(jogador.defesaitem>0){
+//        jogador.durabilidadedefesa --
+//    }
+//
+//    if(jogador.durabilidadeataque == 0){
+//        jogador.removerItem(jogador, "espada")
+//    }else if(jogador.durabilidadedefesa == 0){
+//        jogador.removerItem(jogador, "armadura")
+//    }
+
+    var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
     var ataqueM: Int = monstro.ataque
 
-    var defesaJ: Int = jogador.defesa
+    var defesaJ: Int = jogador.defesa + jogador.defesaitem
     var defesaM: Int = monstro.defesa
 
 
@@ -70,9 +82,9 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
             ajudante.encerrarcontrato(RPG,jogador)
         }
 
-
-
     }
+
+
 
     log += "[ f ] MONSTRO FINAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ f ] JOGADOR FINAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n\n"

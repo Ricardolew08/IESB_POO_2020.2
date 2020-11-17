@@ -84,13 +84,16 @@ open class Itens(
             jogador.vida = jogador.vida + eff[1].toInt()
 
         } else if (eff[0] == "atk") {
-            jogador.ataque = jogador.ataque + eff[1].toInt()
+            jogador.ataqueitem = jogador.ataqueitem + eff[1].toInt()
 
         } else if (eff[0] == "def") {
-            jogador.defesa = jogador.defesa + eff[1].toInt()
+            jogador.defesaitem = jogador.defesaitem + eff[1].toInt()
         }
         //jogador.removerItem(id)
     }
+
+
+
 
 }
 
