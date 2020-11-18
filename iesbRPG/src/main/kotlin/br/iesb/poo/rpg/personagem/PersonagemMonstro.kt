@@ -26,7 +26,6 @@ class PersonagemMonstro(
             this.nivel = (jogadorBase.nivel)
         }
 
-
         if (novaRaca == 0 || novaRaca == 1) {
 
             dinheiro = (this.nivel * (1..2).random())

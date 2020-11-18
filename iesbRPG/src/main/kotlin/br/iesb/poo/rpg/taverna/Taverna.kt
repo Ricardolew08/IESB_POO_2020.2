@@ -8,8 +8,6 @@ import br.iesb.poo.rpg.personagem.PersonagemJogador
 
 //contratação de ajudantes
 
-
-
 class Taverna () {
 
     fun Algumacoisa(jogador: PersonagemJogador, RPG : Rpg): PersonagemAjudante{
@@ -21,11 +19,7 @@ class Taverna () {
             RPG.criarAjudante(TipoPersonagem.PERSONAGEM_MESTRE, jogador)
         }
 
-
         return ajudante
     }
-
-
-
 
 }

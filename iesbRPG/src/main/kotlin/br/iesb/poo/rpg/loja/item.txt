@@ -1,9 +1,9 @@
 potP|poção|uma Poção Pequena|hp.1|10
 potM|poção|uma Poção Média|hp.2|18
 potG|poção|uma Poção Grande|hp.3|26
-espadaP|arma|Espada|atk.5|20
-espadaM|arma|Espada|atk.10|30
-espadaG|arma|Espada|atk.20|50
-escudoP|armadura|Escudo|def.5|20
-escudoM|armadura|Escudo|def.10|30
-escudoG|armadura|Escudo|def.20|50
+espadaP|arma|uma Espada Enferrujada|atk.3|20
+espadaM|arma|uma Espada de Metal|atk.7|30
+espadaG|arma|uma Espada de Respeito|atk.15|50
+escudoP|armadura|um Escudo de Madeira|def.2|20
+escudoM|armadura|um Escudo de Bronze|def.5|30
+escudoG|armadura|um Escudo Reluzente|def.11|50

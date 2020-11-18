@@ -20,7 +20,7 @@ class PersonagemJogador(
     private var xp: Int = 0
     var inventario = mutableListOf<ArrayList<String>>()
     var ajudanteAtual = mutableListOf<PersonagemAjudante>()
-    var batalhas : Int = 0
+    var batalhas : Int = 1
     var durabilidadeataque : Int = 0
     var durabilidadedefesa : Int = 0
     var ataqueitem: Int = 0
@@ -125,15 +125,10 @@ class PersonagemJogador(
                 log += "\n[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
         }
 
-//        if (this.sorte <= 2 && (1..100).random() == 1) {
-//            this.sorte++
-//            log += "[ ☘ ] VOCÊ ENCONTROU UM TREVO DE QUATRO FOLHAS E JÁ SE SENTE MAIS SORTUDO\n"
-//        }
-
         return log
     }
 
-    private fun nivelUp(): String { //ATUALIZAR ATAQUE/DEFESA EM RELAÇÃO AO ELEMENTO ATUAL QUANDO AUMENTAR NÍVEL
+    private fun nivelUp(): String {
 
         if (classe == 1) {
             if (elemento % 2 == 0) {
@@ -163,19 +158,6 @@ class PersonagemJogador(
         }
         return log
     }
-
-//    open fun adicionarItem(jogador : PersonagemJogador ,id: String, qtd : Int): {
-////       (jogador.inventario.find{it[0] == id}!![1])
-////        println(jogador.inventario)
-////        (jogador.inventario.find { it[0][0].toString() == id }?.set(1,qtd.toString()))
-////        println(jogador.inventario)
-//
-//
-//
-//
-//
-//    }
-
 
     open fun removerItem (jogador: PersonagemJogador){
         if (jogador.durabilidadeataque == 0) {

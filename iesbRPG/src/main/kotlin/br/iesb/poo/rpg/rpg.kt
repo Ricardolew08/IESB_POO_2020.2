@@ -21,32 +21,38 @@ class Rpg {
     val ajudante = mutableListOf<PersonagemAjudante>()
 
     private val listaNomes = arrayOf(
-        "Valdomiro Putão",
-        "Bozonaru",
-        "Lula d'Asilva Bushim Shei al Mussei",
-        "Donarudu Trumpuru",
-        "Montro",
-        "Éffiagácê",
-        "Kin John 1: Flango",
-        "Kin John 2: return('The')",
-        "Conde Temer",
-        "Abaishar, o Assado"
+        "Bei, ",
+        "Thok, ",
+        "Mashbu, ",
+        "Lurtz, "
+    )
+
+    private val listaCoringa = arrayOf(
+        "BUG",
+        "Dorminhoco",
+        "Enjoado",
+        "Feiticeiro da cor roxa de um arco íris"
+    )
+
+    private val listaTitulos = arrayOf(
+        "o Comilão",
+        "o Banguela",
+        "o Preguiçoso",
+        "o Destraido"
     )
 
     private val listaChefe = arrayOf(
-        "Previdância Social",
-        "Privatização do SUS",
-        "Tarifa do busão",
-        "Fogo no pantanal",
-        "Fogo na Amazônia",
-        "Apagão no Amapá"
-
+        "Blexoverreth, o Terrivel",
+        "Nedraco, o não Bonito",
+        "Hanthad, o Perverso",
+        "Kenniston Funkeiro",
+        "P3, a Prova"
     )
 
     private val listaAjudantes = arrayOf(
-        "Snake Lusquinha",
+        "Snake Luquinhas",
         "Sir Pancho",
-        "Estouro de pilha",
+        "Estouro de Pilha"
     )
 
     fun criarMonstro(
@@ -57,15 +63,15 @@ class Rpg {
         val novoPersonagem = if (tipoPersonagem == TipoPersonagem.PERSONAGEM_CORINGA) {
             PersonagemMonstro(
                 novaRaca = 2,
-                (listaNomes).random(),
-                elementoMonstro = -1,
+                (listaCoringa).random(),
+                elementoMonstro = (1..4).random(),
                 jogadorBase = jogadorBaseBatalha,
                 RPG
             )
         } else if (tipoPersonagem == TipoPersonagem.PERSONAGEM_MONSTRO){
             PersonagemMonstro(
                 novaRaca = (0..1).random(),
-                (listaNomes).random(),
+                (listaNomes).random() + (listaTitulos).random(),
                 elementoMonstro = (1..4).random(),
                 jogadorBase = jogadorBaseBatalha,
                 RPG
@@ -74,7 +80,7 @@ class Rpg {
             PersonagemMonstro(
                 novaRaca = 3,
                 (listaChefe).random(),
-                elementoMonstro = -1,
+                elementoMonstro = 1,
                 jogadorBase = jogadorBaseBatalha,
                 RPG
             )

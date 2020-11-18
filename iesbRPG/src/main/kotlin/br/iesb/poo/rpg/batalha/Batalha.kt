@@ -15,36 +15,27 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     }
 
     val racaMonstro = arrayOf("Orc", "Goblin", "Gnomio")
+    val afinidade = arrayOf("Água", "Fogo", "Ar", "Terra")
 
-    var log = "--LOG DA BATALHA ENTRE ${jogador.nome} e ${racaMonstro[monstro.raca]} ${monstro.nome} DE NÍVEL ${monstro.nivel}--\n\n"
+    var log =
+        "--BATALHA DE NÚMERO ${jogador.batalhas}--\n" +
+        "--LOG DA BATALHA ENTRE ${jogador.nome} e ${racaMonstro[monstro.raca]} ${monstro.nome} DE NÍVEL ${monstro.nivel}--\n\n"
 
     // INÍCIO CÁLCULO DOS ATRIBUTOS
 
-    log += "[ ~ ] MONSTRO COM ELEMENTO ${monstro.elemento}\n"
-    log += "[ ~ ] JOGADOR COM ELEMENTO ${jogador.elemento}\n"
+    log += "[ ~ ] MONSTRO COM ELEMENTO ${afinidade[monstro.elemento-1]}\n"
+    log += "[ ~ ] JOGADOR COM ELEMENTO ${afinidade[jogador.elemento-1]}\n"
 
-//    if(jogador.ataqueitem > 0){
-//        jogador.durabilidadeataque --
-//    }else if(jogador.defesaitem>0){
-//        jogador.durabilidadedefesa --
-//    }
-//
-//    if(jogador.durabilidadeataque == 0){
-//        jogador.removerItem(jogador, "espada")
-//    }else if(jogador.durabilidadedefesa == 0){
-//        jogador.removerItem(jogador, "armadura")
-//    }
-
-    if (jogador.durabilidadeataque == 0){
+    if (jogador.durabilidadeataque == 0) {
         jogador.removerItem(jogador)
-    } else if (jogador.durabilidadeataque != 0){
-        jogador.durabilidadeataque --
+    } else if (jogador.durabilidadeataque != 0) {
+        jogador.durabilidadeataque--
     }
 
-    if (jogador.durabilidadedefesa == 0){
+    if (jogador.durabilidadedefesa == 0) {
         jogador.removerItem(jogador)
-    } else if(jogador.durabilidadedefesa != 0){
-        jogador.durabilidadedefesa --
+    } else if (jogador.durabilidadedefesa != 0) {
+        jogador.durabilidadedefesa--
     }
 
     var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
@@ -57,8 +48,9 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     log += "[ i ] JOGADOR INICIAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n"
 
     val chanceterreno: Int = (1..4).random()
+    val tipoTerreno = arrayOf("AQUÁTICO", "VULCÂNICO", "AÉREO", "MONTANHOSO")
 
-    log += "[ ^ ] BATALHA NO TERRENO ${chanceterreno}\n"
+    log += "[ ^ ] BATALHA NO TERRENO ${tipoTerreno[chanceterreno-1]}\n"
 
     // TERRENO BUFF ATK
     if (chanceterreno == jogador.elemento)
@@ -78,21 +70,16 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     if ((jogador.elemento + 1 == monstro.elemento || monstro.elemento == 1 && jogador.elemento == 4) && defesaM > 1)
         defesaM--
 
-
-
     if (ajudante != null) {
         ajudante.batalhas++
-        if(ajudante.batalhas <3) {
+        if (ajudante.batalhas < 3) {
             ataqueJ = ataqueJ + ajudante.ataque
             defesaJ = defesaJ + ajudante.defesa
             jogador.sorte = jogador.sorte + ajudante.sorte
-        }else{
-            ajudante.encerrarcontrato(RPG,jogador)
+        } else {
+            ajudante.encerrarcontrato(RPG, jogador)
         }
-
     }
-
-
 
     log += "[ f ] MONSTRO FINAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ f ] JOGADOR FINAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n\n"
@@ -100,16 +87,12 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     // FIM CÁLCULOS DE ATRIBUTOS
     // INÍCIO COMBATE
 
-
     val iniciativaM: Int = (0..10).random()
     var turno = 1
 
     val INICIOTURNO = 7
 
-
-
-
-    if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
+    if (INICIOTURNO + jogador.sorte > iniciativaM) {
         log += "[ * ] JOGADOR INICIOU O COMBATE\n\n"
 
         while (defesaJ > 0 || defesaM > 0) {
@@ -162,33 +145,33 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
             }
         }
 
-
         log += "\n--FIM DO COMBATE--\n"
     }
-
-
 
     return log
 }
 
 fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?): String {
 
-    val chefe: PersonagemMonstro = RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CHEFE, jogadorBaseBatalha = jogador)
+    val chefe: PersonagemMonstro =
+        RPG.criarMonstro(tipoPersonagem = TipoPersonagem.PERSONAGEM_CHEFE, jogadorBaseBatalha = jogador)
 
-    var log = "--LOG DA BATALHA ENTRE ${jogador.nome} E CHEFE ${chefe.nome}--\n\n"
 
-    if (jogador.durabilidadeataque == 0){
+    var log =
+        "--BATALHA DE NÚMERO ${jogador.batalhas}--\n" +
+        "--LOG DA BATALHA ENTRE ${jogador.nome} E CHEFE ${chefe.nome}--\n\n"
+
+    if (jogador.durabilidadeataque == 0) {
         jogador.removerItem(jogador)
-    } else if (jogador.durabilidadeataque != 0){
-        jogador.durabilidadeataque --
+    } else if (jogador.durabilidadeataque != 0) {
+        jogador.durabilidadeataque--
     }
 
-    if (jogador.durabilidadedefesa == 0){
+    if (jogador.durabilidadedefesa == 0) {
         jogador.removerItem(jogador)
-    } else if(jogador.durabilidadedefesa != 0){
-        jogador.durabilidadedefesa --
+    } else if (jogador.durabilidadedefesa != 0) {
+        jogador.durabilidadedefesa--
     }
-
 
     var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
     var ataqueM: Int = chefe.ataque
@@ -196,30 +179,27 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
     var defesaJ: Int = jogador.defesa + jogador.defesaitem
     var defesaM: Int = chefe.defesa
 
-
-
-
     if (ajudante != null) {
         ajudante.batalhas++
-        if(ajudante.batalhas <3) {
+        if (ajudante.batalhas < 3) {
             ataqueJ = ataqueJ + ajudante.ataque
             defesaJ = defesaJ + ajudante.defesa
             jogador.sorte = jogador.sorte + ajudante.sorte
-        }else{
-            ajudante.encerrarcontrato(RPG,jogador)
+        } else {
+            ajudante.encerrarcontrato(RPG, jogador)
         }
-
     }
+
+    log += "[ f ] CHEFE FINAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
+    log += "[ f ] JOGADOR FINAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n\n"
 
     val iniciativaM: Int = (0..10).random()
     var turno = 1
 
     val INICIOTURNO = 7
 
+    if (INICIOTURNO + jogador.sorte > iniciativaM) {
 
-
-
-    if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
         log += "[ * ] JOGADOR INICIOU O COMBATE\n\n"
 
         while (defesaJ > 0 || defesaM > 0) {
@@ -270,11 +250,8 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
             }
         }
 
-
         log += "\n--FIM DO COMBATE--\n"
     }
-
-
 
     return log
 }

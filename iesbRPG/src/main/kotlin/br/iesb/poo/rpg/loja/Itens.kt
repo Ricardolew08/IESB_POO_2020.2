@@ -58,25 +58,6 @@ open class Itens(
         return retorno
     }
 
-//    open fun check_dinheiro(jogador: PersonagemJogador, precoentrada: Int): Boolean {
-//        var retorno: Boolean
-//
-//        if (jogador.dinheiro >= precoentrada) {
-//
-//            jogador.dinheiro = jogador.dinheiro - precoentrada
-//
-//
-//            return true
-//
-////            log+="${preco} moedas de ouro foram debitadas!"
-//
-//        } else {
-////            log+="Você não tem moedas de ouro suficientes para a transação!"
-//
-//            return false
-//        }
-//
-//    }
 
     open fun efeito(jogador: PersonagemJogador, id: String?) {
         var eff = buscar(id)[3].split(".") as ArrayList<String>
@@ -91,10 +72,7 @@ open class Itens(
             jogador.defesaitem = jogador.defesaitem + eff[1].toInt()
             jogador.durabilidadedefesa = jogador.durabilidadedefesa + 3
         }
-        //jogador.removerItem(id)
     }
-
-
 
 
 }
