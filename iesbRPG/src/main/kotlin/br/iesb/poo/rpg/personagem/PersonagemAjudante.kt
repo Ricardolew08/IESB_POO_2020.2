@@ -27,12 +27,14 @@ class PersonagemAjudante (classeAjudante: Int,
             this.defesa = ((1..3).random() * this.nivel)
         } else if (classeAjudante == 1){
             if (elemento % 2 == 0) {
-                this.ataque = ((1..2).random() * this.nivel)
+                this.ataque = ((4..5).random() * this.nivel)
+                this.defesa = this.defesa - 1
             } else {
-                this.defesa = ((1..2).random() * this.nivel)
+                this.defesa = ((4..5).random() * this.nivel)
+                this.ataque = this.ataque - 1
             }
         } else {
-            this.sorte = ((0..4).random() * this.nivel)
+            this.sorte = 10
         }
     }
 

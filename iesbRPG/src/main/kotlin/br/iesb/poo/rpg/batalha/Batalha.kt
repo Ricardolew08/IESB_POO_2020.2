@@ -110,14 +110,14 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
 
 
     if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
-        log += "[ * ] JOGADOR INICIOU O COMBATE\n"
+        log += "[ * ] JOGADOR INICIOU O COMBATE\n\n"
 
         while (defesaJ > 0 || defesaM > 0) {
             defesaM -= ataqueJ
             log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM $defesaM DE DEFESA\n"
 
             if (defesaM <= 0) {
-                log += "[ = ] JOGADOR GANHOU\n"
+                log += "\n[ = ] JOGADOR GANHOU\n"
                 log += monstro.derrota(RPG)
                 log += jogador.vitoria(monstro)
                 break
@@ -129,20 +129,22 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
             turno++
 
             if (defesaJ <= 0) {
-                log += "[ = ] JOGADOR PERDEU\n"
+                log += "\n[ = ] JOGADOR PERDEU\n"
                 log += jogador.derrota(RPG)
                 break
             }
         }
+
+        log += "\n--FIM DO COMBATE--\n"
     } else {
-        log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n"
+        log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n\n"
 
         while (defesaM > 0 || defesaJ > 0) {
             defesaJ -= ataqueM
             log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM ${defesaJ}\n"
 
             if (defesaJ <= 0) {
-                log += "[ = ] JOGADOR PERDEU\n"
+                log += "\n[ = ] JOGADOR PERDEU\n"
                 log += jogador.derrota(RPG)
                 break
             }
@@ -153,7 +155,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
             turno++
 
             if (defesaM <= 0) {
-                log += "[ = ] JOGADOR GANHOU\n"
+                log += "\n[ = ] JOGADOR GANHOU\n"
                 log += monstro.derrota(RPG)
                 log += jogador.vitoria(monstro)
                 break
@@ -218,14 +220,14 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
 
 
     if (INICIOTURNO + jogador.sorte > iniciativaM) { //TODO SIMPLIFICAR IFS COM TERNÁRIO PARA ATQUE/DEFESA DO INICIADOR OU UTILIZAR ATACANTE/DEFENSOR NO INÍCIO DO CÓDIGO
-        log += "[ * ] JOGADOR INICIOU O COMBATE\n"
+        log += "[ * ] JOGADOR INICIOU O COMBATE\n\n"
 
         while (defesaJ > 0 || defesaM > 0) {
             defesaM -= ataqueJ
             log += "TURNO ${turno}: JOGADOR ATACOU COM $ataqueJ MONSTRO FICOU COM $defesaM DE DEFESA\n"
 
             if (defesaM <= 0) {
-                log += "[ = ] JOGADOR GANHOU\n"
+                log += "\n[ = ] JOGADOR GANHOU\n"
                 log += chefe.derrota(RPG)
                 log += jogador.vitoria(chefe)
                 break
@@ -237,20 +239,20 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
             turno++
 
             if (defesaJ <= 0) {
-                log += "[ = ] JOGADOR PERDEU\n"
+                log += "\n[ = ] JOGADOR PERDEU\n"
                 log += jogador.derrota(RPG)
                 break
             }
         }
     } else {
-        log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n"
+        log += "[ * ] EMBOSCADA! MONSTRO INICIOU O COMBATE\n\n"
 
         while (defesaM > 0 || defesaJ > 0) {
             defesaJ -= ataqueM
             log += "TURNO ${turno}: MONSTRO ATACOU COM $ataqueM JOGADOR FICOU COM ${defesaJ}\n"
 
             if (defesaJ <= 0) {
-                log += "[ = ] JOGADOR PERDEU\n"
+                log += "\n[ = ] JOGADOR PERDEU\n"
                 log += jogador.derrotaChefe(RPG)
                 break
             }
@@ -261,7 +263,7 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
             turno++
 
             if (defesaM <= 0) {
-                log += "[ = ] JOGADOR GANHOU\n"
+                log += "\n[ = ] JOGADOR GANHOU\n"
                 log += chefe.derrota(RPG)
                 log += jogador.vitoria(chefe)
                 break

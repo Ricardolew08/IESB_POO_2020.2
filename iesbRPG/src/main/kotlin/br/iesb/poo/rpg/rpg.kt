@@ -33,8 +33,20 @@ class Rpg {
         "Abaishar, o Assado"
     )
 
+    private val listaChefe = arrayOf(
+        "Previdância Social",
+        "Privatização do SUS",
+        "Tarifa do busão",
+        "Fogo no pantanal",
+        "Fogo na Amazônia",
+        "Apagão no Amapá"
+
+    )
+
     private val listaAjudantes = arrayOf(
-        "Um nome bonitinho"
+        "Snake Lusquinha",
+        "Sir Pancho",
+        "Estouro de pilha",
     )
 
     fun criarMonstro(
@@ -61,7 +73,7 @@ class Rpg {
         } else{
             PersonagemMonstro(
                 novaRaca = 3,
-                (listaNomes).random(),
+                (listaChefe).random(),
                 elementoMonstro = -1,
                 jogadorBase = jogadorBaseBatalha,
                 RPG

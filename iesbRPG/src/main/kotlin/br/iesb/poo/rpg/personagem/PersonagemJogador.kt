@@ -51,7 +51,7 @@ class PersonagemJogador(
     private fun morrerJogador(rpg: Rpg): String {
 
         rpg.jogadores.remove(rpg.jogadores.find { it.id == this.id })
-        return "[ ✝ ] VOCÊ MORREU, SEU PERSONAGEM FOI DELETADO\n"
+        return "\n[ ✝ ] VOCÊ MORREU, SEU PERSONAGEM FOI DELETADO\n"
     }
 
     override fun derrota(rpg: Rpg): String {
@@ -59,7 +59,7 @@ class PersonagemJogador(
         this.vida--
         this.dinheiro = this.dinheiro / 2
 
-        var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
+        var log = "\n[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
 
         log += if (this.vida <= 0) {
 
@@ -78,7 +78,7 @@ class PersonagemJogador(
         this.vida = this.vida - 2
         this.dinheiro = this.dinheiro / 10
 
-        var log = "[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
+        var log = "\n[ :c ] VOCE TEM ${this.vida} VIDAS RESTANTES\n"
 
         log += if (this.vida <= 0) {
 
@@ -99,7 +99,7 @@ class PersonagemJogador(
         this.xp += xpganho
 
         var log =
-            "[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU $xpganho XP NO NÍVEL ${this.nivel}\n"
+            "\n[ $ ] AGORA VOCÊ ESTÁ COM ${this.dinheiro} MOEDAS DE OURO E GANHOU $xpganho XP NO NÍVEL ${this.nivel}\n"
 
         var xpProxNv = 0
         var i = 0
@@ -117,12 +117,12 @@ class PersonagemJogador(
             xpProxNv += this.nivel * 100
         }
 
-        log += "[ ➽ ] XP ATUAL: ${this.xp}\n"
+        log += "\n[ ➽ ] XP ATUAL: ${this.xp}\n"
         log += "[ ➽ ] XP NECESSÁRIO PARA O PRÓXIMO NÍVEL: ${xpProxNv}\n"
 
         if ((1..10).random() + this.sorte >= 9) {
                 this.vida++
-                log += "[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
+                log += "\n[ ♥ ] VOCÊ ENCONTROU UMA POÇÃO DE VIDA NOS ESPÓLIOS, AGORA SUA VIDA É ${this.vida}\n"
         }
 
 //        if (this.sorte <= 2 && (1..100).random() == 1) {
@@ -153,12 +153,12 @@ class PersonagemJogador(
             }
         }
 
-        var log = "[ ↑ ] VOCÊ UPOU E AGORA ESTÁ NO NÍVEL ${this.nivel}\n"
+        var log = "\n[ ↑ ] VOCÊ UPOU E AGORA ESTÁ NO NÍVEL ${this.nivel}\n"
 
         if (vida < 5) {
             this.vida++
 
-            log += "[ ♥ ] JUNTO COM A EXPERIÊNCIA ADQUIRIDA VOCÊ SE SENTE REVIGORADO, SUA VIDA AGORA É ${this.vida}\n"
+            log += "\n[ ♥ ] JUNTO COM A EXPERIÊNCIA ADQUIRIDA VOCÊ SE SENTE REVIGORADO, SUA VIDA AGORA É ${this.vida}\n"
 
         }
         return log
@@ -175,6 +175,7 @@ class PersonagemJogador(
 //
 //
 //    }
+
 
     open fun removerItem (jogador: PersonagemJogador){
         if (jogador.durabilidadeataque == 0) {
