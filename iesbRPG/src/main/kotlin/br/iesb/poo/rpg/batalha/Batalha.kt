@@ -15,7 +15,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     }
 
     val racaMonstro = arrayOf("Orc", "Goblin", "Gnomio")
-    val afinidade = arrayOf("Água", "Fogo", "Ar", "Terra")
+    val afinidade = arrayOf("ÁGUA", "FOGO", "AR", "TERRA")
 
     var log =
         "--BATALHA DE NÚMERO ${jogador.batalhas}--\n" +

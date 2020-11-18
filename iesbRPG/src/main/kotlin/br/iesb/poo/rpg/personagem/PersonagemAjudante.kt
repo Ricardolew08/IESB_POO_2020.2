@@ -54,7 +54,7 @@ class PersonagemAjudante(
         var ajudante = rpg.ajudante.find { it.id == this.id }
         println(ajudante)
         rpg.ajudante.remove(rpg.ajudante.find { it.id == this.id })
-        jogador.ajudanteAtual.remove(jogador.ajudanteAtual.find { it.id == this.id })
+        jogador.ajudante.remove(jogador.ajudante.find { it.id == this.id })
     }
 
 }

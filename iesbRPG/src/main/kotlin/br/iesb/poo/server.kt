@@ -32,17 +32,17 @@ fun main() {
 
             get("/") {
                 call.respondText(
-                    "ROTAS\n\n" +
-                            "GET Listar Jogadores: /jogadores\n" +
-                            "GET Listar Monstros: /monstros\n" +
-                            "POST Criar um novo Jogador: /jogadores/criarjogador\n" +
-                            "POST Travar uma Batalha: /batalha/(JogadorID)/(AjudanteID)\n" +
-                            "POST Comprar Itens: /loja/(JogadorID)/(ItemID)\n" +
-                            "POST Visualizar seu Inventario: /inventario/(JogadorID)\n" +
-                            "POST Contratar um Mercenário: /taverna/(JogadorID)\n" +
-                            "PUT Enviar uma Menssagem: /taverna/chat/(JogadorID)/(Menssagem)\n" +
-                            "GET Visualizar o Chat de Menssagens: /taverna/chat",
-                    status = HttpStatusCode.OK
+                        "ROTAS\n\n" +
+                                "GET Listar Jogadores: /jogadores\n" +
+                                "GET Listar Monstros: /monstros\n" +
+                                "POST Criar um novo Jogador: /jogadores/criarjogador\n" +
+                                "POST Travar uma Batalha: /batalha/(JogadorID)/(AjudanteID)\n" +
+                                "POST Comprar Itens: /loja/(JogadorID)/(ItemID)\n" +
+                                "POST Visualizar seu Inventario: /inventario/(JogadorID)\n" +
+                                "POST Contratar um Mercenário: /taverna/(JogadorID)\n" +
+                                "PUT Enviar uma Menssagem: /taverna/chat/(JogadorID)/(Menssagem)\n" +
+                                "GET Visualizar o Chat de Menssagens: /taverna/chat",
+                        status = HttpStatusCode.OK
                 )
             }
 
@@ -71,15 +71,15 @@ fun main() {
             post("/jogadores/criarjogador") {
                 val atributos = call.receive<PersonagemJogador>()
                 val novojogador = PersonagemJogador(
-                    atributos.classe,
-                    atributos.nome,
-                    atributos.elemento,
-                    RPG
+                        atributos.classe,
+                        atributos.nome,
+                        atributos.elemento,
+                        RPG
                 )
                 RPG.jogadores.add(novojogador)
                 call.respondText(
-                    "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID: ${novojogador.id}",
-                    status = HttpStatusCode.Created
+                        "Criado com sucesso ${if (novojogador.classe == 1) "Arqueiro" else "Cavaleiro"} ${novojogador.nome} de ID: ${novojogador.id}",
+                        status = HttpStatusCode.Created
                 )
             }
 
@@ -130,33 +130,45 @@ fun main() {
                             jogador.dinheiro = jogador.dinheiro - retorno[4].toInt()
 
                             itens.efeito(jogador, opcao)
-                            jogador.inventario.add(retorno)
+
+                            if (retorno[1] != "poção") {
+                                var eff = itens.buscar(opcao)[3].split(".") as ArrayList<String>
+                                if (eff[0] == "atk") {
+                                    var arr = arrayListOf<String>(retorno[1], "O equipamento é ${retorno[2]}", "${eff[1]} de ataque")
+                                    jogador.inventario.add(arr)
+
+                                }else{
+                                    var arr = arrayListOf<String>(retorno[1], "O equipamento é ${retorno[2]}", "${eff[1]} de defesa")
+                                    jogador.inventario.add(arr)
+                                }
+
+                            }
 
                             call.respondText(
-                                "Você comprou ${retorno[2]} pelo valor de ${retorno[4]}!\n " +
-                                        "Muito Obrigada! Volte sempre",
-                                status = (HttpStatusCode.OK)
+                                    "Você comprou ${retorno[2]} pelo valor de ${retorno[4]} moedas de ouro!\n" +
+                                            "Muito Obrigada! Volte sempre",
+                                    status = (HttpStatusCode.OK)
                             )
                         } else {
                             call.respondText(
-                                "Você não tem moedas de ouro suficientes para comprar ${retorno[2]} e não vendemos fiado",
-                                status = (HttpStatusCode.Forbidden)
+                                    "Você não tem moedas de ouro suficientes para comprar ${retorno[2]} e não vendemos fiado",
+                                    status = (HttpStatusCode.Forbidden)
                             )
 
                         }
 
                     } else {
                         call.respondText(
-                            "Infelizmente estamos com falta de estoque!\n " +
-                                    "Muito Obrigada! Agradeçemos a compreensão",
-                            status = (HttpStatusCode.NoContent)
+                                "Infelizmente estamos com falta de estoque!\n" +
+                                        "Muito Obrigada! Agradeçemos a compreensão",
+                                status = (HttpStatusCode.NoContent)
                         )
 
                     }
                 } else {
                     call.respondText(
-                        "Verifique o ID, jogador não exite!!",
-                        status = (HttpStatusCode.NoContent)
+                            "Verifique o ID, jogador não existe!!",
+                            status = (HttpStatusCode.NoContent)
                     )
 
                 }
@@ -192,22 +204,22 @@ fun main() {
                         val tav = Taverna()
                         var ajudante = tav.Algumacoisa(jogador, RPG)
 
-                        jogador.ajudanteAtual.add(ajudante)
+                        jogador.ajudante.add(ajudante)
 
                         val tipoajudante = arrayOf("Escudeiro", "Mago", "Mestre das Cartas")
 
                         call.respondText(
-                            "Você contratou ${ajudante.nome}, o ${tipoajudante[ajudante.classe]} pelo valor de 50 moedas de ouro!\n" +
-                                    "Este é o número do contrato: ${ajudante.id}\n" +
-                                    "Te restaram ${jogador.dinheiro} moedas de ouro.\n" +
-                                    "Muito Obrigada! Volte sempre!",
-                            status = (HttpStatusCode.OK)
+                                "Você contratou ${ajudante.nome}, o ${tipoajudante[ajudante.classe]} pelo valor de 50 moedas de ouro!\n" +
+                                        "Este é o número do contrato: ${ajudante.id}\n" +
+                                        "Te restaram ${jogador.dinheiro} moedas de ouro.\n" +
+                                        "Muito Obrigada! Volte sempre!",
+                                status = (HttpStatusCode.OK)
                         )
                     } else {
                         call.respondText(
-                            "Você possui ${jogador.dinheiro} moedas de ouro.\n" +
-                                    "Para contratar um mercenário você precisa de 50 moedas de ouro.",
-                            status = (HttpStatusCode.Forbidden)
+                                "Você possui ${jogador.dinheiro} moedas de ouro.\n" +
+                                        "Para contratar um mercenário você precisa de 50 moedas de ouro.",
+                                status = (HttpStatusCode.Forbidden)
                         )
                     }
 
