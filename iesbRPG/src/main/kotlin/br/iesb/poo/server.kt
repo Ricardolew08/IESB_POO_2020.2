@@ -100,10 +100,6 @@ fun main() {
                 } else {
                     call.respond(HttpStatusCode.NoContent)
                 }
-
-
-
-
             }
 
             post("/loja/{idURL}/{opcao}") {

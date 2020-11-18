@@ -35,13 +35,23 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
 //        jogador.removerItem(jogador, "armadura")
 //    }
 
+    if (jogador.durabilidadeataque == 0){
+        jogador.removerItem(jogador)
+    } else if (jogador.durabilidadeataque != 0){
+        jogador.durabilidadeataque --
+    }
+
+    if (jogador.durabilidadedefesa == 0){
+        jogador.removerItem(jogador)
+    } else if(jogador.durabilidadedefesa != 0){
+        jogador.durabilidadedefesa --
+    }
+
     var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
     var ataqueM: Int = monstro.ataque
 
     var defesaJ: Int = jogador.defesa + jogador.defesaitem
     var defesaM: Int = monstro.defesa
-
-
 
     log += "[ i ] MONSTRO INICIAL - ATAQUE $ataqueM /// DEFESA ${defesaM}\n"
     log += "[ i ] JOGADOR INICIAL - ATAQUE $ataqueJ /// DEFESA ${defesaJ}\n"
@@ -165,11 +175,27 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
 
     var log = "--LOG DA BATALHA ENTRE ${jogador.nome} E CHEFE ${chefe.nome}--\n\n"
 
+    if (jogador.durabilidadeataque == 0){
+        jogador.removerItem(jogador)
+    } else if (jogador.durabilidadeataque != 0){
+        jogador.durabilidadeataque --
+    }
+
+    if (jogador.durabilidadedefesa == 0){
+        jogador.removerItem(jogador)
+    } else if(jogador.durabilidadedefesa != 0){
+        jogador.durabilidadedefesa --
+    }
+
+
     var ataqueJ: Int = jogador.ataque + jogador.ataqueitem
     var ataqueM: Int = chefe.ataque
 
     var defesaJ: Int = jogador.defesa + jogador.defesaitem
     var defesaM: Int = chefe.defesa
+
+
+
 
     if (ajudante != null) {
         ajudante.batalhas++

@@ -85,9 +85,11 @@ open class Itens(
 
         } else if (eff[0] == "atk") {
             jogador.ataqueitem = jogador.ataqueitem + eff[1].toInt()
+            jogador.durabilidadeataque = jogador.durabilidadeataque + 3
 
         } else if (eff[0] == "def") {
             jogador.defesaitem = jogador.defesaitem + eff[1].toInt()
+            jogador.durabilidadedefesa = jogador.durabilidadedefesa + 3
         }
         //jogador.removerItem(id)
     }
