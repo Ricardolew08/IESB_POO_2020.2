@@ -1,0 +1,28 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+}
+
+group 'br.iesb'
+version '1.0-SNAPSHOT'
+
+task stage {
+
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation 'io.ktor:ktor-server-netty:1.4.0'
+    implementation "io.ktor:ktor-gson:1.4.0"
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
