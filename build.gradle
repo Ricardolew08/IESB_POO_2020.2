@@ -9,6 +9,16 @@ task stage {
 
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': "br.iesb.poo.ServerKt"
+        )
+    }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+
 repositories {
     jcenter()
     mavenCentral()
