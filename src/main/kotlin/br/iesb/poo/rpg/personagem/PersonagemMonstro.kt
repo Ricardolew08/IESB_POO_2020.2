@@ -10,8 +10,7 @@ class PersonagemMonstro(
         rpgAtual: Rpg
 ) : Personagem(nomeMonstro, elementoMonstro) {
 
-    // Orc = 0; Goblin = 1; Gnomio = 2
-    // Orc + Defesa; Goblin + Ataque
+
 
     var raca: Int = 0
     var derrotado = false

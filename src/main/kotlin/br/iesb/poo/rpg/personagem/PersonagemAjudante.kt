@@ -21,7 +21,6 @@ class PersonagemAjudante(
 
 
 
-
         this.nivel = (1..(jogadorBase.nivel) + 2).random()
 
         if (classeAjudante == 0) {
@@ -42,6 +41,7 @@ class PersonagemAjudante(
         }
     }
 
+
     override fun genId(rpgAtual: Rpg): Int {
         var novaId = (0..10000).random()
         while (rpgAtual.ajudante.find { it.id == novaId } != null) {
@@ -50,11 +50,20 @@ class PersonagemAjudante(
         return novaId
     }
 
-    fun encerrarcontrato(rpg: Rpg, jogador: PersonagemJogador) {
+    override fun derrota(rpg: Rpg): String {
+       var log : String = ""
+       log+="\n[ !! ] O seu ajudante finalizou o trabalho. Caso necessite de mais ajuda, visite a taverna!\n\n"
+       rpg.ajudante.remove(rpg.ajudante.find { it.id == this.id })
+
+       return log
+    }
+
+    fun encerrarcontrato(rpg: Rpg, jogador: PersonagemJogador) :String{
         var ajudante = rpg.ajudante.find { it.id == this.id }
         println(ajudante)
-        rpg.ajudante.remove(rpg.ajudante.find { it.id == this.id })
         jogador.ajudante.remove(jogador.ajudante.find { it.id == this.id })
+        var log = derrota(rpg)
+        return log
     }
 
 }

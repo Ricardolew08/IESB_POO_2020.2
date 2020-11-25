@@ -10,7 +10,7 @@ import br.iesb.poo.rpg.personagem.PersonagemJogador
 
 class Taverna () {
 
-    fun Algumacoisa(jogador: PersonagemJogador, RPG : Rpg): PersonagemAjudante{
+    fun criarJogador(jogador: PersonagemJogador, RPG : Rpg): PersonagemAjudante{
 
 
         val ajudante: PersonagemAjudante = if ((1..100).random() >=5) {

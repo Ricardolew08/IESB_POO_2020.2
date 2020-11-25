@@ -12,8 +12,9 @@ task stage {
 jar {
     manifest {
         attributes(
+                "Class-Path": "main/kotlin",
                 'Main-Class': 'br.iesb.poo.ServerKt'
-//                "Class-Path": "main/kotlin"
+
         )
     }
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }

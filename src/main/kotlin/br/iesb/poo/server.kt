@@ -204,7 +204,7 @@ fun main() {
                         jogador.dinheiro = jogador.dinheiro - 50
 
                         val tav = Taverna()
-                        var ajudante = tav.Algumacoisa(jogador, RPG)
+                        var ajudante = tav.criarJogador(jogador, RPG)
 
                         jogador.ajudante.add(ajudante)
 

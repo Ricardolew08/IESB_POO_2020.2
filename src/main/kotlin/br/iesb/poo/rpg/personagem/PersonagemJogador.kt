@@ -28,9 +28,9 @@ class PersonagemJogador(
 
     var dinheiro : Int = 100
 
-//    val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
+    //val inventario = arrayOf<Array<String>>() //[Item,Quantidade]
 
-//    val inventario = mutableListOf<String>()
+    //val inventario = mutableListOf<String>()
 
 
     //var inventario = [[PotP, X], [PotM, y]...]
@@ -48,7 +48,7 @@ class PersonagemJogador(
             novaId = (0..10000).random()
         }
         return novaId
-    }
+    } //liskov/segregação/openclosed
 
     private fun morrerJogador(rpg: Rpg): String {
 

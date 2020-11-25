@@ -79,7 +79,7 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
             defesaJ = defesaJ + ajudante.defesa
             jogador.sorte = jogador.sorte + ajudante.sorte
         } else {
-            ajudante.encerrarcontrato(RPG, jogador)
+             log += ajudante.encerrarcontrato(RPG, jogador)
         }
     }
 
@@ -188,7 +188,7 @@ fun batalhaChefe(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjuda
             defesaJ = defesaJ + ajudante.defesa
             jogador.sorte = jogador.sorte + ajudante.sorte
         } else {
-            ajudante.encerrarcontrato(RPG, jogador)
+           log += ajudante.encerrarcontrato(RPG, jogador)
         }
     }
 
