@@ -51,10 +51,10 @@ fun main() {
             get("/jogadores") {
                 if (RPG.jogadores.isNotEmpty()) {
                     call.respond(RPG.jogadores)
-                } else {
-                    call.respond(HttpStatusCode.NoContent)
                 }
-            }
+                call.respond(HttpStatusCode.NoContent)
+                }
+
 
             get("/monstros") {
                 if (RPG.monstros.isNotEmpty()) {
@@ -66,7 +66,7 @@ fun main() {
 
             get("/taverna/chat") {
 
-                call.respondText(File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
+                call.respondText(File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").readText())
             }
 
 
@@ -153,7 +153,7 @@ fun main() {
                             )
                         } else {
                             call.respondText(
-                                    "Você não tem moedas de ouro suficientes para comprar ${retorno[2]} e não vendemos fiado",
+                                    "Você não tem moedas de ouro suficientes para comprar ${retorno[2]} e não vendemos fiado!",
                                     status = (HttpStatusCode.Forbidden)
                             )
 
@@ -241,7 +241,7 @@ fun main() {
 
                 if (jogador != null) {
                     msg = "<${formatado}> ${jogador.nome} diz: " + msg + "\n";
-                    File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
+                    File("src/main/kotlin/br/iesb/poo/rpg/taverna/chat.txt").appendText(msg)
                     call.respond(HttpStatusCode.OK)
                 } else {
                     call.respond(HttpStatusCode.NoContent)

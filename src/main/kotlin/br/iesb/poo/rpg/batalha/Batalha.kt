@@ -33,8 +33,10 @@ fun batalha(jogador: PersonagemJogador, RPG: Rpg, ajudante: PersonagemAjudante?)
     }
 
     if (jogador.durabilidadedefesa == 0) {
+        println("oiiiiiiiiii")
         jogador.removerItem(jogador)
-    } else if (jogador.durabilidadedefesa != 0) {
+    }else if (jogador.durabilidadedefesa != 0) {
+        println("oi")
         jogador.durabilidadedefesa--
     }
 

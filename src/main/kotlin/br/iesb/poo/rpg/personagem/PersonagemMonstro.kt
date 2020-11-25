@@ -15,6 +15,7 @@ class PersonagemMonstro(
 
     var raca: Int = 0
     var derrotado = false
+    var dinheiro: Int = 0
 
     init {
 

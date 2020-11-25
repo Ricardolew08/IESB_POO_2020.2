@@ -20,7 +20,7 @@ class PersonagemAjudante(
         classe = classeAjudante
 
 
-        this.dinheiro = 50
+
 
         this.nivel = (1..(jogadorBase.nivel) + 2).random()
 

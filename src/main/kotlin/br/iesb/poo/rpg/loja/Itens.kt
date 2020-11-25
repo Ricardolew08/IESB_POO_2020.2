@@ -49,7 +49,7 @@ open class Itens(
         var arrAux: ArrayList<String>
         var retorno = arrayListOf<String>()
 
-        File("iesbRPG/src/main/kotlin/br/iesb/poo/rpg/loja/item.txt").forEachLine {//[0] - id | [1] - tipo | [2] -nome | [3] -efeito | [4] - preco
+        File("src/main/kotlin/br/iesb/poo/rpg/loja/item.txt").forEachLine {//[0] - id | [1] - tipo | [2] -nome | [3] -efeito | [4] - preco
             arrAux = it.split("|") as ArrayList<String>
             if (arrAux[0] == id) {
                 retorno = arrAux
